@@ -5,28 +5,31 @@ import { renderInlineMath } from '../../lib/math';
 const top = bundle.metrics.top_cited;
 const maxCites = Math.max(...top.map((p) => p.citation_count), 1);
 ---
-<figure class="border border-rule bg-paper p-4">
+<figure class="border border-rule bg-paper p-4 overflow-hidden">
   <figcaption class="flex justify-between items-baseline mb-2">
     <span class="text-[14px] font-medium text-ink">Most-cited papers</span>
     <span class="font-mono text-[10px] tracking-wider text-ink-3">top {top.length}</span>
   </figcaption>
   <ol class="space-y-3">
     {top.map((p, i) => (
-      <li class="grid grid-cols-[18px_1fr_60px] gap-3 items-baseline">
+      <li class="grid grid-cols-[18px_minmax(0,1fr)_44px] md:grid-cols-[18px_minmax(0,1fr)_56px] gap-2 md:gap-3 items-baseline">
         <span class="font-mono text-[11px] text-mark text-right">{i + 1}</span>
-        <a class="block hover:text-accent" href={`https://inspirehep.net/literature/${p.inspire_id}`}>
+        <a
+          class="block hover:text-accent min-w-0 overflow-hidden"
+          href={`https://inspirehep.net/literature/${p.inspire_id}`}
+        >
           <div
-            class="text-[13px] text-ink leading-snug truncate"
+            class="text-[12px] md:text-[13px] text-ink leading-snug truncate"
             set:html={renderInlineMath(p.title)}
           />
-          <div class="h-1 mt-1 bg-rule-2 relative">
+          <div class="h-1 mt-1 bg-rule-2 relative w-full">
             <span
               class="absolute inset-y-0 left-0 bg-accent"
               style={`width: ${(p.citation_count / maxCites) * 100}%`}
             ></span>
           </div>
         </a>
-        <span class="font-mono text-[12px] text-ink text-right tabular-nums">
+        <span class="font-mono text-[11px] md:text-[12px] text-ink text-right tabular-nums">
           {p.citation_count}
         </span>
       </li>
