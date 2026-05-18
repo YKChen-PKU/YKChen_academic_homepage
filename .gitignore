@@ -39,6 +39,11 @@ scripts/.cache/
 *.bbl
 *.blg
 
+# LaTeX source files — keep them local only; site publishes the rendered PDFs
+RS_CV/*.tex
+RS_CV/*.bst
+RS_CV/*.bib
+
 # Local config
 .env
 .env.*
