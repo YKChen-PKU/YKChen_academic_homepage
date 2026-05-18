@@ -21,7 +21,7 @@ def test_fetch_author_parses_name_and_affiliation():
     profile = client.fetch_author('2182746')
     assert profile.recid == '2182746'
     assert profile.name == 'Yan-Ke Chen'
-    assert profile.current_affiliation == 'Peking U.'
+    assert profile.current_affiliation == 'Peking U., CHEP'
 
 
 @respx.mock

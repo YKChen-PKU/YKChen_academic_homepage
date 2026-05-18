@@ -1,10 +1,84 @@
 {
+  "updated": "2026-02-07T17:36:43.245221+00:00",
   "metadata": {
-    "name": {"value": "Chen, Yan-Ke", "preferred_name": "Yan-Ke Chen"},
-    "positions": [
-      {"current": true, "institution": "Peking U.", "rank": "POSTDOC"}
+    "advisors": [
+      {
+        "name": "Zhu, Shi-Lin",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/982063"
+        },
+        "degree_type": "phd",
+        "curated_relation": false
+      }
     ],
-    "ids": [{"schema": "INSPIRE BAI", "value": "Yan.Ke.Chen.1"}],
-    "orcid": null
-  }
+    "positions": [
+      {
+        "rank": "POSTDOC",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirehep.net/api/institutions/911671"
+        },
+        "current": true,
+        "start_date": "2025",
+        "institution": "Peking U., CHEP",
+        "curated_relation": false
+      },
+      {
+        "rank": "PHD",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirehep.net/api/institutions/1238006"
+        },
+        "current": false,
+        "end_date": "2025",
+        "start_date": "2020",
+        "institution": "Peking U., Beijing",
+        "curated_relation": true
+      },
+      {
+        "rank": "UNDERGRADUATE",
+        "hidden": false,
+        "record": {
+          "$ref": "https://inspirehep.net/api/institutions/904070"
+        },
+        "current": false,
+        "end_date": "2020",
+        "start_date": "2016",
+        "institution": "Lanzhou U.",
+        "curated_relation": false
+      }
+    ],
+    "ids": [
+      {
+        "value": "Yan.Ke.Chen.1",
+        "schema": "INSPIRE BAI"
+      },
+      {
+        "value": "0000-0002-9984-163X",
+        "schema": "ORCID"
+      }
+    ],
+    "name": {
+      "value": "Chen, Yan-Ke",
+      "native_names": [
+        "\u9648\u708e\u67ef"
+      ],
+      "preferred_name": "Yan-Ke Chen"
+    },
+    "stub": false,
+    "status": "active",
+    "$schema": "https://inspirehep.net/schemas/records/authors.json",
+    "control_number": 2182746,
+    "arxiv_categories": [
+      "hep-ph"
+    ]
+  },
+  "revision_id": 46,
+  "id": "2182746",
+  "uuid": "c49fabd4-686d-4701-bd79-f47fb728ba54",
+  "links": {
+    "json": "https://inspirehep.net/api/authors/2182746?format=json"
+  },
+  "created": "2022-11-17T02:51:20.418135+00:00"
 }
