@@ -12,15 +12,15 @@ const payload = { first, middle: t.middle ?? 0, last: t.last ?? 0, firstPct };
     <span class="text-[14px] font-medium text-ink">Author position</span>
     <span class="font-mono text-[10px] tracking-wider text-ink-3">n = {total}</span>
   </figcaption>
-  <div class="grid grid-cols-[160px_1fr] items-center gap-4 h-[260px]">
-    <div class="relative">
+  <div class="h-[440px] flex flex-col items-center justify-center gap-4 py-2">
+    <div class="relative w-[260px] h-[260px]">
       <canvas id="author-position" data-payload={JSON.stringify(payload)}></canvas>
       <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        <div class="text-[22px] font-medium tracking-tight tabular-nums">{payload.firstPct}%</div>
+        <div class="text-[28px] font-medium tracking-tight tabular-nums">{payload.firstPct}%</div>
         <div class="font-mono text-[10px] tracking-widest text-ink-3 uppercase">first</div>
       </div>
     </div>
-    <ul class="space-y-2 font-mono text-[12px]">
+    <ul class="flex flex-wrap justify-center gap-x-5 gap-y-1.5 font-mono text-[12px]">
       <li><span class="inline-block w-2.5 h-2.5 bg-accent mr-2 align-middle"></span>First / sole — {payload.first}</li>
       <li><span class="inline-block w-2.5 h-2.5 bg-mark mr-2 align-middle"></span>Middle — {payload.middle}</li>
       <li><span class="inline-block w-2.5 h-2.5 bg-rule mr-2 align-middle"></span>Last — {payload.last}</li>

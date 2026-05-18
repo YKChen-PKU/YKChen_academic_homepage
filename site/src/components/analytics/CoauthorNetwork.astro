@@ -13,7 +13,7 @@ const data = JSON.stringify({ nodes: g.nodes, edges: g.edges });
   </figcaption>
   <div
     id="coauthor-network"
-    class="w-full h-[480px]"
+    class="w-full h-[440px]"
     data-graph={data}
   ></div>
 </figure>
@@ -125,7 +125,11 @@ const data = JSON.stringify({ nodes: g.nodes, edges: g.edges });
   node.append('title').text((d) => `${d.name} — ${d.papers_with_yk} papers with YK`);
   node
     .append('text')
-    .text((d) => d.name.split(',')[0])
+    .text((d) => {
+      // INSPIRE name is "Last, First" — display surname only.
+      const surname = d.name.split(',')[0].trim();
+      return surname || d.name;
+    })
     .attr('font-family', 'IBM Plex Mono')
     .attr('font-size', 10)
     .attr('fill', '#4C463D')

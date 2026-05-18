@@ -1,5 +1,6 @@
 ---
 import type { Paper } from '../lib/data';
+import { displayName } from '../lib/data';
 import { renderInlineMath } from '../lib/math';
 
 interface Props {
@@ -9,11 +10,12 @@ interface Props {
 const { paper } = Astro.props;
 
 const authorList = paper.authors
-  .map((a) =>
-    a.is_yk
-      ? `<strong class="text-accent">${escape(a.name)}</strong>`
-      : escape(a.name),
-  )
+  .map((a) => {
+    const display = escape(displayName(a.name));
+    return a.is_yk
+      ? `<strong class="text-accent">${display}</strong>`
+      : display;
+  })
   .join(', ');
 
 const venueLine = paper.journal_ref

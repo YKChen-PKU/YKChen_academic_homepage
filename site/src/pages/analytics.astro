@@ -8,7 +8,6 @@ import HIndexCurve from '../components/analytics/HIndexCurve.astro';
 import AuthorPosition from '../components/analytics/AuthorPosition.astro';
 import TopCited from '../components/analytics/TopCited.astro';
 import JournalSplit from '../components/analytics/JournalSplit.astro';
-import TopicTreemap from '../components/analytics/TopicTreemap.astro';
 ---
 <Base title="Analytics — Yan-Ke Chen">
   <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
@@ -16,7 +15,7 @@ import TopicTreemap from '../components/analytics/TopicTreemap.astro';
       <span class="block text-[11px] text-mark mb-1">§</span>ANALYTICS
     </div>
     <div>
-      <h1 class="text-[36px] font-semibold tracking-tightest text-ink">Eight views of the work</h1>
+      <h1 class="text-[36px] font-semibold tracking-tightest text-ink">Seven views of the work</h1>
       <p class="text-[14px] text-ink-2 mt-2 max-w-[68ch]">
         Data sourced from INSPIRE-HEP author
         <a class="text-accent hover:text-ink" href="https://inspirehep.net/authors/2182746">2182746</a>.
@@ -40,16 +39,13 @@ import TopicTreemap from '../components/analytics/TopicTreemap.astro';
       <HIndexCurve />
     </div>
 
-    <!-- Row 3: Co-author network | Author position -->
-    <div class="grid md:grid-cols-2 gap-6">
+    <!-- Row 3: Co-author network (wider) | Author position (narrower, donut centered) -->
+    <div class="grid md:grid-cols-[1.55fr_1fr] gap-6">
       <CoauthorNetwork />
       <AuthorPosition />
     </div>
 
     <!-- Row 4: Most-cited (full width) -->
     <TopCited />
-
-    <!-- Row 5: Topic treemap (full width) -->
-    <TopicTreemap />
   </div>
 </Base>

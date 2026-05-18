@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-18T09:09:04.045489Z",
+  "fetched_at": "2026-05-18T09:30:21.246686Z",
   "author": {
     "recid": "2182746",
     "name": "Yan-Ke Chen",
@@ -53,7 +53,7 @@
         "hep-lat"
       ],
       "author_position": "middle",
-      "theme_slug": null
+      "theme_slug": "hadronic_interaction"
     },
     {
       "arxiv_id": "2506.18800",
@@ -96,7 +96,7 @@
         "hep-lat"
       ],
       "author_position": "middle",
-      "theme_slug": "em_chiPT"
+      "theme_slug": "electromagnetic_properties"
     },
     {
       "arxiv_id": "2412.02297",
@@ -139,7 +139,7 @@
         "hep-lat"
       ],
       "author_position": "first",
-      "theme_slug": "em_chiPT"
+      "theme_slug": "electromagnetic_properties"
     },
     {
       "arxiv_id": "2302.01696",
@@ -185,7 +185,7 @@
         "hep-ph"
       ],
       "author_position": "middle",
-      "theme_slug": "production"
+      "theme_slug": "production_and_decays"
     },
     {
       "arxiv_id": "2408.00503",
@@ -234,7 +234,7 @@
         "nucl-th"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2309.17068",
@@ -278,7 +278,7 @@
         "nucl-th"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2211.09021",
@@ -322,7 +322,7 @@
         "nucl-th"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2401.14899",
@@ -366,7 +366,7 @@
         "nucl-th"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2406.17824",
@@ -414,7 +414,7 @@
         "hep-lat"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2308.12424",
@@ -459,7 +459,7 @@
         "quant-ph"
       ],
       "author_position": "first",
-      "theme_slug": "exotic_interactions"
+      "theme_slug": "hadronic_interaction"
     },
     {
       "arxiv_id": "2009.01182",
@@ -505,7 +505,7 @@
         "hep-ph"
       ],
       "author_position": "first",
-      "theme_slug": "production"
+      "theme_slug": "production_and_decays"
     },
     {
       "arxiv_id": "2310.13354",
@@ -549,7 +549,7 @@
         "nucl-th"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2602.05502",
@@ -593,7 +593,7 @@
         "nucl-th"
       ],
       "author_position": "middle",
-      "theme_slug": "em_chiPT"
+      "theme_slug": "electromagnetic_properties"
     },
     {
       "arxiv_id": "2409.03373",
@@ -642,7 +642,7 @@
         "nucl-th"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2508.11161",
@@ -689,7 +689,7 @@
         "hep-ex"
       ],
       "author_position": "middle",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2310.14597",
@@ -733,7 +733,7 @@
         "nucl-th"
       ],
       "author_position": "first",
-      "theme_slug": "spectrum_quark_models"
+      "theme_slug": "quark_models"
     },
     {
       "arxiv_id": "2602.12010",
@@ -770,7 +770,7 @@
         "hep-ex"
       ],
       "author_position": "first",
-      "theme_slug": "exotic_interactions"
+      "theme_slug": "hadronic_interaction"
     }
   ],
   "metrics": {
@@ -1117,7 +1117,7 @@
       "value": null,
       "children": [
         {
-          "name": "untagged",
+          "name": "hadronic_interaction",
           "value": null,
           "children": [
             {
@@ -1128,13 +1128,23 @@
                   "name": "Uncovering the mystery of $X(3872)$ with the cou",
                   "value": 1,
                   "children": null
+                },
+                {
+                  "name": "Virtual states in the coupled-channel problems w",
+                  "value": 1,
+                  "children": null
+                },
+                {
+                  "name": "Existence of the $DD^*\\bar{K}^*$ and $BB^*K^*$ t",
+                  "value": 1,
+                  "children": null
                 }
               ]
             }
           ]
         },
         {
-          "name": "em_chiPT",
+          "name": "electromagnetic_properties",
           "value": null,
           "children": [
             {
@@ -1161,7 +1171,7 @@
           ]
         },
         {
-          "name": "production",
+          "name": "production_and_decays",
           "value": null,
           "children": [
             {
@@ -1183,7 +1193,7 @@
           ]
         },
         {
-          "name": "spectrum_quark_models",
+          "name": "quark_models",
           "value": null,
           "children": [
             {
@@ -1238,47 +1248,12 @@
               ]
             }
           ]
-        },
-        {
-          "name": "exotic_interactions",
-          "value": null,
-          "children": [
-            {
-              "name": "hep-ph",
-              "value": null,
-              "children": [
-                {
-                  "name": "Virtual states in the coupled-channel problems w",
-                  "value": 1,
-                  "children": null
-                },
-                {
-                  "name": "Existence of the $DD^*\\bar{K}^*$ and $BB^*K^*$ t",
-                  "value": 1,
-                  "children": null
-                }
-              ]
-            }
-          ]
         }
       ]
     }
   },
   "themes": {
-    "em_chiPT": [
-      "2412.02297",
-      "2506.18800",
-      "2602.05502"
-    ],
-    "exotic_interactions": [
-      "2308.12424",
-      "2602.12010"
-    ],
-    "production": [
-      "2009.01182",
-      "2302.01696"
-    ],
-    "spectrum_quark_models": [
+    "quark_models": [
       "2310.14597",
       "2508.11161",
       "2401.14899",
@@ -1288,6 +1263,20 @@
       "2309.17068",
       "2211.09021",
       "2408.00503"
+    ],
+    "hadronic_interaction": [
+      "2308.12424",
+      "2602.12010",
+      "2404.16575"
+    ],
+    "electromagnetic_properties": [
+      "2412.02297",
+      "2506.18800",
+      "2602.05502"
+    ],
+    "production_and_decays": [
+      "2009.01182",
+      "2302.01696"
     ]
   }
 }

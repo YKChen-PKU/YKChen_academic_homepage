@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { bundle } from '../lib/data';
+import { bundle, themeLabel } from '../lib/data';
 import PaperRow from '../components/PaperRow.astro';
 
 const papers = [...bundle.papers].sort((a, b) => b.year - a.year);
@@ -31,7 +31,7 @@ const themes = Object.keys(bundle.themes);
           <span class="w-[72px] text-ink-3">Theme</span>
           <button class="filter-chip" data-filter-group="theme" data-filter-value="all" data-active="true">All</button>
           {themes.map((t) => (
-            <button class="filter-chip" data-filter-group="theme" data-filter-value={t}>{t.replace(/_/g, ' ')}</button>
+            <button class="filter-chip" data-filter-group="theme" data-filter-value={t}>{themeLabel(t)}</button>
           ))}
         </div>
         <div class="flex flex-wrap items-baseline gap-2">

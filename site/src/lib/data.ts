@@ -95,3 +95,17 @@ export const refreshedLabel = fetchedAt.toLocaleDateString('en-US', {
   day: 'numeric',
   timeZone: 'UTC',
 });
+
+/** "Chen, Yan-Ke" → "Yan-Ke Chen". Idempotent if no comma is present. */
+export function displayName(name: string): string {
+  const idx = name.indexOf(',');
+  if (idx < 0) return name;
+  return `${name.slice(idx + 1).trim()} ${name.slice(0, idx).trim()}`;
+}
+
+/** Theme-slug → display label. "quark_models" → "Quark models". */
+export function themeLabel(slug: string): string {
+  if (!slug) return '';
+  const s = slug.replace(/_/g, ' ');
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
