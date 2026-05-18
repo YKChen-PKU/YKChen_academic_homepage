@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import { bundle } from '../lib/data';
+import PaperRow from '../components/PaperRow.astro';
+
+const papers = [...bundle.papers].sort((a, b) => b.year - a.year);
+const years = [...new Set(papers.map((p) => p.year))].sort((a, b) => b - a);
+const themes = Object.keys(bundle.themes);
+---
+<Base title="Publications — Yan-Ke Chen">
+  <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+      <span class="block text-[11px] text-mark mb-1">§</span>ALL
+    </div>
+    <div>
+      <h1 class="text-[36px] font-semibold tracking-tightest text-ink mb-2">Publications</h1>
+      <p class="text-[14px] text-ink-2 mb-6">
+        {papers.length} papers · {papers.reduce((s, p) => s + p.citation_count, 0)} citations.
+      </p>
+
+      <!-- filter chips -->
+      <div class="mb-6 flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase">
+        <button class="filter-chip" data-filter-group="year" data-filter-value="all" data-active="true">All years</button>
+        {years.map((y) => (
+          <button class="filter-chip" data-filter-group="year" data-filter-value={String(y)}>{y}</button>
+        ))}
+        <span class="mx-2 text-ink-3">·</span>
+        <button class="filter-chip" data-filter-group="theme" data-filter-value="all" data-active="true">All themes</button>
+        {themes.map((t) => (
+          <button class="filter-chip" data-filter-group="theme" data-filter-value={t}>{t.replace(/_/g, ' ')}</button>
+        ))}
+        <span class="mx-2 text-ink-3">·</span>
+        <button class="filter-chip" data-filter-group="position" data-filter-value="all" data-active="true">Any position</button>
+        <button class="filter-chip" data-filter-group="position" data-filter-value="first">First</button>
+        <button class="filter-chip" data-filter-group="position" data-filter-value="middle">Middle</button>
+        <button class="filter-chip" data-filter-group="position" data-filter-value="last">Last</button>
+      </div>
+
+      <div id="paper-list">
+        {papers.map((p) => (
+          <div
+            class="paper-row"
+            data-year={p.year}
+            data-theme={p.theme_slug ?? 'untagged'}
+            data-position={p.author_position}
+          >
+            <PaperRow paper={p} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .filter-chip {
+    padding: 4px 10px;
+    border: 1px solid var(--color-rule);
+    border-radius: 4px;
+    background: var(--color-paper);
+    color: var(--color-ink-2);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.06em;
+  }
+  .filter-chip:hover { background: var(--color-paper-2); }
+  .filter-chip[data-active="true"] {
+    background: var(--color-accent);
+    color: var(--color-paper);
+    border-color: var(--color-accent);
+  }
+</style>
+
+<script>
+  const state: Record<string, string> = { year: 'all', theme: 'all', position: 'all' };
+  const params = new URLSearchParams(window.location.search);
+  for (const k of Object.keys(state)) {
+    const v = params.get(k);
+    if (v) state[k] = v;
+  }
+
+  function syncChips(): void {
+    document.querySelectorAll<HTMLButtonElement>('.filter-chip').forEach((btn) => {
+      const grp = btn.dataset.filterGroup!;
+      const val = btn.dataset.filterValue!;
+      btn.dataset.active = state[grp] === val ? 'true' : 'false';
+    });
+  }
+
+  function applyFilter(): void {
+    document.querySelectorAll<HTMLElement>('.paper-row').forEach((row) => {
+      const okYear = state.year === 'all' || row.dataset.year === state.year;
+      const okTheme = state.theme === 'all' || row.dataset.theme === state.theme;
+      const okPos = state.position === 'all' || row.dataset.position === state.position;
+      row.style.display = okYear && okTheme && okPos ? '' : 'none';
+    });
+    const next = new URLSearchParams();
+    for (const [k, v] of Object.entries(state)) if (v !== 'all') next.set(k, v);
+    const qs = next.toString();
+    history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.filter-chip').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const grp = btn.dataset.filterGroup!;
+      state[grp] = btn.dataset.filterValue!;
+      syncChips();
+      applyFilter();
+    });
+  });
+  syncChips();
+  applyFilter();
+</script>
