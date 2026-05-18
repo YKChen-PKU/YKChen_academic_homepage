@@ -1,0 +1,156 @@
+---
+import { bundle } from '../../lib/data';
+
+const g = bundle.metrics.coauthor_graph;
+const data = JSON.stringify({ nodes: g.nodes, edges: g.edges });
+---
+<figure class="border border-rule bg-paper p-4">
+  <figcaption class="flex justify-between items-baseline mb-2">
+    <span class="text-[14px] font-medium text-ink">Co-author network</span>
+    <span class="font-mono text-[10px] tracking-wider text-ink-3">
+      {g.nodes.length} co-authors · drag nodes to explore
+    </span>
+  </figcaption>
+  <div
+    id="coauthor-network"
+    class="w-full h-[480px]"
+    data-graph={data}
+  ></div>
+</figure>
+
+<script>
+  import * as d3 from 'd3';
+
+  const root = document.getElementById('coauthor-network')!;
+  const graph = JSON.parse(root.dataset.graph!) as {
+    nodes: { name: string; papers_with_yk: number; inspire_id: string | null }[];
+    edges: { source: string; target: string; weight: number }[];
+  };
+  const width = root.clientWidth || 800;
+  const height = root.clientHeight || 480;
+  const svg = d3
+    .select(root)
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('class', 'w-full h-full');
+
+  const totalPapers = graph.nodes.reduce((s, n) => s + n.papers_with_yk, 0);
+  type Node = {
+    id: string;
+    name: string;
+    papers_with_yk: number;
+    isYk: boolean;
+    x?: number;
+    y?: number;
+    fx?: number | null;
+    fy?: number | null;
+  };
+  const nodes: Node[] = [
+    { id: 'YK', name: 'Y. K. Chen', papers_with_yk: totalPapers, isYk: true },
+    ...graph.nodes.map((n) => ({
+      id: n.name,
+      name: n.name,
+      papers_with_yk: n.papers_with_yk,
+      isYk: false,
+    })),
+  ];
+
+  const ykLinks = graph.nodes.map((n) => ({
+    source: 'YK',
+    target: n.name,
+    weight: n.papers_with_yk,
+  }));
+  const crossLinks = graph.edges.map((e) => ({
+    source: e.source,
+    target: e.target,
+    weight: e.weight,
+  }));
+  const links = [...ykLinks, ...crossLinks];
+
+  const sim = d3
+    .forceSimulation(nodes as any)
+    .force('charge', d3.forceManyBody().strength(-80))
+    .force(
+      'link',
+      d3
+        .forceLink(links as any)
+        .id((d: any) => d.id)
+        .distance(60)
+        .strength(0.4),
+    )
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force(
+      'collide',
+      d3.forceCollide().radius((d: any) => Math.sqrt(d.papers_with_yk) * 4 + 6),
+    );
+
+  const link = svg
+    .append('g')
+    .attr('stroke', '#DCD5C5')
+    .selectAll('line')
+    .data(links)
+    .enter()
+    .append('line')
+    .attr('stroke-width', (d) => Math.sqrt(d.weight));
+
+  const node = svg
+    .append('g')
+    .selectAll('g')
+    .data(nodes)
+    .enter()
+    .append('g')
+    .call(
+      d3
+        .drag<SVGGElement, any>()
+        .on('start', (ev, d) => {
+          if (!ev.active) sim.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+        })
+        .on('drag', (ev, d) => {
+          d.fx = ev.x;
+          d.fy = ev.y;
+        })
+        .on('end', (ev, d) => {
+          if (!ev.active) sim.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+        }),
+    );
+
+  node
+    .append('circle')
+    .attr('r', (d) => (d.isYk ? 12 : Math.sqrt(d.papers_with_yk) * 3 + 4))
+    .attr('fill', (d) => (d.isYk ? '#B0492A' : '#1B2E5E'));
+  node.append('title').text((d) => `${d.name} — ${d.papers_with_yk} papers with YK`);
+  node
+    .append('text')
+    .text((d) => d.name.split(',')[0])
+    .attr('font-family', 'IBM Plex Mono')
+    .attr('font-size', 10)
+    .attr('fill', '#4C463D')
+    .attr('dx', 10)
+    .attr('dy', 3);
+
+  sim.on('tick', () => {
+    link
+      .attr('x1', (d: any) => d.source.x)
+      .attr('y1', (d: any) => d.source.y)
+      .attr('x2', (d: any) => d.target.x)
+      .attr('y2', (d: any) => d.target.y);
+    node.attr('transform', (d: any) => `translate(${d.x},${d.y})`);
+  });
+
+  const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduce) {
+    sim.alpha(1).tick(300).stop();
+    link
+      .attr('x1', (d: any) => d.source.x)
+      .attr('y1', (d: any) => d.source.y)
+      .attr('x2', (d: any) => d.target.x)
+      .attr('y2', (d: any) => d.target.y);
+    node.attr('transform', (d: any) => `translate(${d.x},${d.y})`);
+  } else {
+    setTimeout(() => sim.stop(), 1000);
+  }
+</script>

@@ -1,0 +1,94 @@
+---
+import { bundle } from '../../lib/data';
+
+const data = JSON.stringify(bundle.metrics.treemap);
+---
+<figure class="border border-rule bg-paper p-4">
+  <figcaption class="flex justify-between items-baseline mb-2">
+    <span class="text-[14px] font-medium text-ink">Topic / keyword map</span>
+    <span class="font-mono text-[10px] tracking-wider text-ink-3">
+      theme → arXiv category → paper
+    </span>
+  </figcaption>
+  <div id="topic-treemap" class="w-full h-[360px]" data-tree={data}></div>
+</figure>
+
+<script>
+  import * as d3 from 'd3';
+
+  const root = document.getElementById('topic-treemap')!;
+  const tree = JSON.parse(root.dataset.tree!);
+  const w = root.clientWidth || 800;
+  const h = root.clientHeight || 360;
+  const themeColor = d3
+    .scaleOrdinal<string, string>()
+    .domain([
+      'spectrum_quark_models',
+      'exotic_interactions',
+      'em_chiPT',
+      'production',
+      'untagged',
+    ])
+    .range(['#1B2E5E', '#3B4F7E', '#7787A8', '#B0492A', '#8C8579']);
+
+  const hierarchy = d3
+    .hierarchy(tree as any)
+    .sum((d: any) => d.value ?? 0)
+    .sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
+  d3.treemap<any>().size([w, h]).padding(2)(hierarchy);
+
+  const svg = d3
+    .select(root)
+    .append('svg')
+    .attr('viewBox', `0 0 ${w} ${h}`)
+    .attr('class', 'w-full h-full');
+
+  const leaf = svg
+    .selectAll('g.leaf')
+    .data(hierarchy.leaves())
+    .enter()
+    .append('g')
+    .attr('class', 'leaf')
+    .attr('transform', (d: any) => `translate(${d.x0},${d.y0})`);
+
+  leaf
+    .append('rect')
+    .attr('width', (d: any) => d.x1 - d.x0)
+    .attr('height', (d: any) => d.y1 - d.y0)
+    .attr('fill', (d: any) => {
+      const theme = d.ancestors().find((a: any) => a.depth === 1)?.data.name;
+      return theme ? themeColor(theme) : '#8C8579';
+    })
+    .attr('stroke', '#F6F4EE')
+    .attr('stroke-width', 1);
+
+  leaf.append('title').text((d: any) => d.data.name);
+
+  leaf
+    .filter((d: any) => d.x1 - d.x0 > 90 && d.y1 - d.y0 > 22)
+    .append('text')
+    .attr('x', 6)
+    .attr('y', 14)
+    .attr('font-family', 'IBM Plex Mono')
+    .attr('font-size', 9)
+    .attr('fill', '#F6F4EE')
+    .text((d: any) =>
+      d.data.name.length > 40 ? d.data.name.slice(0, 40) + '…' : d.data.name,
+    );
+
+  // Theme labels at depth 1 (drawn on top of the leaves)
+  hierarchy
+    .descendants()
+    .filter((d: any) => d.depth === 1)
+    .forEach((d: any) => {
+      svg
+        .append('text')
+        .attr('x', d.x0 + 6)
+        .attr('y', d.y0 + 18)
+        .attr('font-family', 'IBM Plex Mono')
+        .attr('font-size', 10)
+        .attr('fill', '#F6F4EE')
+        .attr('font-weight', 600)
+        .text((d.data.name as string).replace(/_/g, ' '));
+    });
+</script>

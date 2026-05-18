@@ -1,0 +1,64 @@
+---
+import { bundle } from '../../lib/data';
+
+const t = bundle.metrics.author_position_total;
+const total = (t.first ?? 0) + (t.middle ?? 0) + (t.last ?? 0) + (t.sole ?? 0);
+const first = (t.first ?? 0) + (t.sole ?? 0);
+const firstPct = total ? Math.round((first / total) * 100) : 0;
+const payload = { first, middle: t.middle ?? 0, last: t.last ?? 0, firstPct };
+---
+<figure class="border border-rule bg-paper p-4">
+  <figcaption class="flex justify-between items-baseline mb-2">
+    <span class="text-[14px] font-medium text-ink">Author position</span>
+    <span class="font-mono text-[10px] tracking-wider text-ink-3">n = {total}</span>
+  </figcaption>
+  <div class="grid grid-cols-[160px_1fr] items-center gap-4 h-[260px]">
+    <div class="relative">
+      <canvas id="author-position" data-payload={JSON.stringify(payload)}></canvas>
+      <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <div class="text-[22px] font-medium tracking-tight tabular-nums">{payload.firstPct}%</div>
+        <div class="font-mono text-[10px] tracking-widest text-ink-3 uppercase">first</div>
+      </div>
+    </div>
+    <ul class="space-y-2 font-mono text-[12px]">
+      <li><span class="inline-block w-2.5 h-2.5 bg-accent mr-2 align-middle"></span>First / sole — {payload.first}</li>
+      <li><span class="inline-block w-2.5 h-2.5 bg-mark mr-2 align-middle"></span>Middle — {payload.middle}</li>
+      <li><span class="inline-block w-2.5 h-2.5 bg-rule mr-2 align-middle"></span>Last — {payload.last}</li>
+    </ul>
+  </div>
+</figure>
+
+<script>
+  import Chart from 'chart.js/auto';
+
+  const canvas = document.getElementById('author-position') as HTMLCanvasElement;
+  const p = JSON.parse(canvas.dataset.payload!) as {
+    first: number;
+    middle: number;
+    last: number;
+    firstPct: number;
+  };
+  new Chart(canvas, {
+    type: 'doughnut',
+    data: {
+      labels: ['First / sole', 'Middle', 'Last'],
+      datasets: [
+        {
+          data: [p.first, p.middle, p.last],
+          backgroundColor: ['#1B2E5E', '#B0492A', '#DCD5C5'],
+          borderColor: '#F6F4EE',
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      cutout: '68%',
+      animation: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? false
+        : { duration: 700 },
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+    },
+  });
+</script>

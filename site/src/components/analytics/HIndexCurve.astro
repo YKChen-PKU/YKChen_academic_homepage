@@ -1,0 +1,80 @@
+---
+import { bundle } from '../../lib/data';
+
+const curve = bundle.metrics.h_index_curve;
+const years = Object.keys(curve)
+  .map(Number)
+  .sort((a, b) => a - b);
+const points = years.map((y) => ({ x: y, h: curve[y] }));
+const maxH = Math.max(...years.map((y) => curve[y]), 1);
+const w = 480;
+const h = 240;
+const padX = 36;
+const padY = 24;
+
+const scaleX = (x: number) =>
+  padX + ((x - years[0]) / Math.max(years.length - 1, 1)) * (w - 2 * padX);
+const scaleY = (val: number) => h - padY - (val / maxH) * (h - 2 * padY);
+
+// Step curve path (rectangular climb)
+const stepPath = points
+  .map((p, i) => {
+    if (i === 0) return `M ${scaleX(p.x)} ${scaleY(p.h)}`;
+    const prev = points[i - 1];
+    return `L ${scaleX(p.x)} ${scaleY(prev.h)} L ${scaleX(p.x)} ${scaleY(p.h)}`;
+  })
+  .join(' ');
+
+// Hirsch reference line: at year y, expected h = (y - first_year + 1)
+const hirschEnd = scaleY(years.length);
+const lastYear = years[years.length - 1];
+const lastH = curve[lastYear];
+---
+<figure class="border border-rule bg-paper p-4">
+  <figcaption class="flex justify-between items-baseline mb-2">
+    <span class="text-[14px] font-medium text-ink">h-index trajectory</span>
+    <span class="font-mono text-[10px] tracking-wider text-ink-3">
+      step curve · dashed = Hirsch 1:1 reference
+    </span>
+  </figcaption>
+  <svg viewBox={`0 0 ${w} ${h}`} class="w-full h-[260px]" aria-labelledby="h-curve-title">
+    <title id="h-curve-title">h-index trajectory across years</title>
+    <line x1={padX} y1={h - padY} x2={w - padX} y2={h - padY} stroke="#DCD5C5" />
+    <line x1={padX} y1={padY} x2={padX} y2={h - padY} stroke="#DCD5C5" />
+    <line x1={padX} y1={h - padY} x2={w - padX} y2={hirschEnd} stroke="#DCD5C5" stroke-dasharray="4 4" />
+    <path d={stepPath} fill="none" stroke="#1B2E5E" stroke-width="1.6" />
+    {points.map((p) => (
+      <circle
+        cx={scaleX(p.x)}
+        cy={scaleY(p.h)}
+        r="3"
+        fill={p.x === lastYear ? '#B0492A' : '#1B2E5E'}
+      >
+        <title>{p.x} : h = {p.h}</title>
+      </circle>
+    ))}
+    {years.map((y) => (
+      <text
+        x={scaleX(y)}
+        y={h - 6}
+        font-family="IBM Plex Mono"
+        font-size="9"
+        fill="#8C8579"
+        text-anchor="middle"
+      >{y}</text>
+    ))}
+    <text
+      x={w - padX}
+      y={scaleY(lastH) - 6}
+      font-family="IBM Plex Mono"
+      font-size="10"
+      fill="#B0492A"
+      text-anchor="end"
+    >h = {lastH}</text>
+  </svg>
+  <table class="sr-only">
+    <caption>h-index by year</caption>
+    <tr><th>Year</th><th>h-index</th></tr>
+    {years.map((y) => <tr><td>{y}</td><td>{curve[y]}</td></tr>)}
+  </table>
+</figure>

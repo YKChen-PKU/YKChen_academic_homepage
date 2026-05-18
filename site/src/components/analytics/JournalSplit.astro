@@ -1,0 +1,60 @@
+---
+import { bundle } from '../../lib/data';
+
+const split = bundle.metrics.journal_split;
+const sorted = Object.entries(split).sort(([, a], [, b]) => b - a);
+const payload = {
+  labels: sorted.map(([k]) => k),
+  values: sorted.map(([, v]) => v),
+};
+const total = sorted.reduce((s, [, v]) => s + v, 0);
+---
+<figure class="border border-rule bg-paper p-4">
+  <figcaption class="flex justify-between items-baseline mb-2">
+    <span class="text-[14px] font-medium text-ink">Journal / venue split</span>
+    <span class="font-mono text-[10px] tracking-wider text-ink-3">{total} papers</span>
+  </figcaption>
+  <div class="w-full h-[260px]">
+    <canvas id="journal-split" data-payload={JSON.stringify(payload)}></canvas>
+  </div>
+</figure>
+
+<script>
+  import Chart from 'chart.js/auto';
+
+  const canvas = document.getElementById('journal-split') as HTMLCanvasElement;
+  const p = JSON.parse(canvas.dataset.payload!) as { labels: string[]; values: number[] };
+  new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: p.labels,
+      datasets: [
+        {
+          data: p.values,
+          backgroundColor: p.labels.map((l) =>
+            l === 'arXiv only' ? '#B0492A' : '#1B2E5E',
+          ),
+        },
+      ],
+    },
+    options: {
+      indexAxis: 'y',
+      animation: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? false
+        : { duration: 600 },
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { font: { family: 'IBM Plex Mono', size: 10 }, precision: 0 },
+        },
+        y: {
+          grid: { display: false },
+          ticks: { font: { family: 'IBM Plex Mono', size: 10 } },
+        },
+      },
+    },
+  });
+</script>

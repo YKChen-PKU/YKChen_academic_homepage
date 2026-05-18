@@ -1,0 +1,89 @@
+---
+import { bundle } from '../../lib/data';
+
+const peryear = bundle.metrics.citations_per_year;
+const cum = bundle.metrics.cumulative_citations;
+const years = Object.keys(cum)
+  .map(Number)
+  .sort((a, b) => a - b);
+const payload = {
+  labels: years,
+  perYear: years.map((y) => peryear[y] ?? 0),
+  cumulative: years.map((y) => cum[y] ?? 0),
+};
+---
+<figure class="border border-rule bg-paper p-4">
+  <figcaption class="flex justify-between items-baseline mb-2">
+    <span class="text-[14px] font-medium text-ink">Cumulative citations + per-year</span>
+    <span class="font-mono text-[10px] tracking-wider text-ink-3">
+      approximation: attributed to publication year
+    </span>
+  </figcaption>
+  <div class="w-full h-[260px]">
+    <canvas id="citations-cumulative" data-payload={JSON.stringify(payload)}></canvas>
+  </div>
+</figure>
+
+<script>
+  import Chart from 'chart.js/auto';
+
+  const canvas = document.getElementById('citations-cumulative') as HTMLCanvasElement;
+  const p = JSON.parse(canvas.dataset.payload!) as {
+    labels: number[];
+    perYear: number[];
+    cumulative: number[];
+  };
+  new Chart(canvas, {
+    data: {
+      labels: p.labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Per year',
+          data: p.perYear,
+          backgroundColor: '#DCD5C5',
+          yAxisID: 'y',
+          order: 2,
+        },
+        {
+          type: 'line',
+          label: 'Cumulative',
+          data: p.cumulative,
+          borderColor: '#1B2E5E',
+          backgroundColor: '#1B2E5E',
+          tension: 0.2,
+          pointRadius: 3,
+          yAxisID: 'y1',
+          order: 1,
+        },
+      ],
+    },
+    options: {
+      animation: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? false
+        : { duration: 600 },
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { family: 'IBM Plex Mono', size: 10 } } },
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { family: 'IBM Plex Mono', size: 10 } },
+        },
+        y: {
+          position: 'left',
+          beginAtZero: true,
+          ticks: { font: { family: 'IBM Plex Mono', size: 10 } },
+        },
+        y1: {
+          position: 'right',
+          beginAtZero: true,
+          grid: { display: false },
+          ticks: { font: { family: 'IBM Plex Mono', size: 10 } },
+        },
+      },
+    },
+  });
+</script>

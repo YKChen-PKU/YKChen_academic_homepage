@@ -1,0 +1,77 @@
+---
+import { bundle } from '../../lib/data';
+
+const ppy = bundle.metrics.papers_per_year;
+const years = Object.keys(ppy)
+  .map(Number)
+  .sort((a, b) => a - b);
+
+const data = {
+  labels: years,
+  first: years.map((y) => (ppy[y].first ?? 0) + (ppy[y].sole ?? 0)),
+  middle: years.map((y) => ppy[y].middle ?? 0),
+  last: years.map((y) => ppy[y].last ?? 0),
+};
+const now = new Date().getUTCFullYear();
+---
+<figure class="border border-rule bg-paper p-4">
+  <figcaption class="flex justify-between items-baseline mb-2">
+    <span class="text-[14px] font-medium text-ink">Papers per year</span>
+    <span class="font-mono text-[10px] tracking-wider text-ink-3">
+      stacked by author position
+    </span>
+  </figcaption>
+  <div class="w-full h-[260px]">
+    <canvas
+      id="papers-per-year"
+      data-payload={JSON.stringify({ data, currentYear: now })}
+    ></canvas>
+  </div>
+</figure>
+
+<script>
+  import Chart from 'chart.js/auto';
+
+  const canvas = document.getElementById('papers-per-year') as HTMLCanvasElement;
+  const { data, currentYear } = JSON.parse(canvas.dataset.payload!) as {
+    data: { labels: number[]; first: number[]; middle: number[]; last: number[] };
+    currentYear: number;
+  };
+  const firstColors = data.labels.map((y) =>
+    y === currentYear ? '#B0492A' : '#1B2E5E',
+  );
+
+  new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: data.labels,
+      datasets: [
+        { label: 'First / sole', data: data.first, backgroundColor: firstColors, stack: 's' },
+        { label: 'Middle', data: data.middle, backgroundColor: '#DCD5C5', stack: 's' },
+        { label: 'Last', data: data.last, backgroundColor: '#8C8579', stack: 's' },
+      ],
+    },
+    options: {
+      animation: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? false
+        : { duration: 600 },
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { family: 'IBM Plex Mono', size: 10 } } },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: { font: { family: 'IBM Plex Mono', size: 10 } },
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          ticks: { font: { family: 'IBM Plex Mono', size: 10 }, precision: 0 },
+        },
+      },
+    },
+  });
+</script>
