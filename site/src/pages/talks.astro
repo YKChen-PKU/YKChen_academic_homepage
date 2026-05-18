@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import yaml from 'js-yaml';
+import { renderInlineMath } from '../lib/math';
+import talksFile from '../data/talks.yaml?raw';
+
+interface Talk {
+  event: string;
+  title: string;
+  location: string;
+  date: string;
+}
+
+const talks = yaml.load(talksFile) as { oral: Talk[]; poster: Talk[] };
+---
+<Base title="Talks — Yan-Ke Chen">
+  <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+      <span class="block text-[11px] text-mark mb-1">§ I</span>ORAL
+    </div>
+    <div>
+      <h2 class="text-[24px] font-medium tracking-tight text-ink mb-3">Oral Presentations</h2>
+      <div>
+        {talks.oral.map((t) => (
+          <article class="grid grid-cols-[1fr_180px] py-4 border-b border-rule-2 gap-4 items-baseline">
+            <div>
+              <div class="text-[15px] font-medium text-ink">{t.event}</div>
+              <div class="italic text-[14px] text-ink-2 mt-1" set:html={renderInlineMath(t.title)} />
+            </div>
+            <div class="text-right font-mono text-[11px] text-ink-3 leading-relaxed">
+              {t.location}<br />{t.date}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-12 grid grid-cols-[90px_1fr] gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+      <span class="block text-[11px] text-mark mb-1">§ II</span>POSTER
+    </div>
+    <div>
+      <h2 class="text-[24px] font-medium tracking-tight text-ink mb-3">Poster Presentations</h2>
+      <div>
+        {talks.poster.map((t) => (
+          <article class="grid grid-cols-[1fr_180px] py-4 border-b border-rule-2 gap-4 items-baseline">
+            <div>
+              <div class="text-[15px] font-medium text-ink">{t.event}</div>
+              <div class="italic text-[14px] text-ink-2 mt-1" set:html={renderInlineMath(t.title)} />
+            </div>
+            <div class="text-right font-mono text-[11px] text-ink-3 leading-relaxed">
+              {t.location}<br />{t.date}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
