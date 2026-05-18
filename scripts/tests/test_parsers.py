@@ -30,3 +30,51 @@ def test_parse_yk_middle_author():
 
 def test_yk_bai_constant_matches_inspire():
     assert YK_BAI == 'Yan.Ke.Chen.1'
+
+
+def test_parse_prefers_arxiv_sourced_title_over_mathml():
+    raw = {
+        'id': '999',
+        'metadata': {
+            'titles': [
+                {'source': 'APS', 'title': 'Uncovering <math><mi>X</mi></math>'},
+                {'source': 'arXiv', 'title': 'Uncovering $X(3872)$'},
+            ],
+            'authors': [{'full_name': 'Chen, Yan-Ke',
+                         'ids': [{'schema': 'INSPIRE BAI', 'value': 'Yan.Ke.Chen.1'}]}],
+            'arxiv_eprints': [{'value': '2404.16575', 'categories': ['hep-ph']}],
+            'preprint_date': '2024-04-25',
+        },
+    }
+    p = parse_paper(raw)
+    assert p.title == 'Uncovering $X(3872)$'
+
+
+def test_parse_falls_back_to_preprint_date_when_no_pub_info():
+    raw = {
+        'id': '999',
+        'metadata': {
+            'titles': [{'source': 'arXiv', 'title': 'Preprint title'}],
+            'authors': [{'full_name': 'Chen, Yan-Ke',
+                         'ids': [{'schema': 'INSPIRE BAI', 'value': 'Yan.Ke.Chen.1'}]}],
+            'arxiv_eprints': [{'value': '2602.12010', 'categories': ['hep-ph']}],
+            'preprint_date': '2026-02-15',
+        },
+    }
+    p = parse_paper(raw)
+    assert p.year == 2026
+    assert p.journal_ref is None
+
+
+def test_parse_year_from_arxiv_id_when_no_dates():
+    raw = {
+        'id': '999',
+        'metadata': {
+            'titles': [{'source': 'arXiv', 'title': 'T'}],
+            'authors': [{'full_name': 'Chen, Yan-Ke',
+                         'ids': [{'schema': 'INSPIRE BAI', 'value': 'Yan.Ke.Chen.1'}]}],
+            'arxiv_eprints': [{'value': '2310.13354', 'categories': ['hep-ph']}],
+        },
+    }
+    p = parse_paper(raw)
+    assert p.year == 2023

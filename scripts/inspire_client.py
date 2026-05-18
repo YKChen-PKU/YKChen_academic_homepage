@@ -70,7 +70,7 @@ class InspireClient:
             data = self._get_json(
                 '/literature',
                 params={
-                    'q': f'a {recid}',
+                    'q': f'authors.recid:{recid}',
                     'size': page_size,
                     'page': page,
                     'fields': ','.join([
