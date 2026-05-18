@@ -1,0 +1,63 @@
+---
+import type { Paper } from '../lib/data';
+import { renderInlineMath } from '../lib/math';
+
+interface Props {
+  paper: Paper;
+}
+
+const { paper } = Astro.props;
+
+const authorList = paper.authors
+  .map((a) =>
+    a.is_yk
+      ? `<strong class="text-accent">${escape(a.name)}</strong>`
+      : escape(a.name),
+  )
+  .join(', ');
+
+const venueLine = paper.journal_ref
+  ? `${paper.journal_ref.name}${
+      paper.journal_ref.volume ? ' ' + paper.journal_ref.volume : ''
+    }${paper.journal_ref.page ? ', ' + paper.journal_ref.page : ''}`
+  : 'arXiv preprint';
+
+function escape(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+---
+<article class="grid grid-cols-[64px_1fr_140px] gap-5 py-4 border-b border-rule-2 items-baseline">
+  <div class="font-mono text-[11px] text-ink-3 tracking-wider">{paper.year}</div>
+  <div>
+    <div
+      class="text-[15px] text-ink leading-snug"
+      set:html={renderInlineMath(paper.title)}
+    />
+    <div
+      class="text-[12px] text-ink-2 italic mt-1"
+      set:html={authorList}
+    />
+    <div class="text-[11px] font-mono text-ink-3 mt-1 flex gap-3 flex-wrap">
+      {paper.doi && (
+        <a class="hover:text-accent" href={`https://doi.org/${paper.doi}`}>
+          doi:{paper.doi}
+        </a>
+      )}
+      {paper.arxiv_id && (
+        <a class="hover:text-accent" href={`https://arxiv.org/abs/${paper.arxiv_id}`}>
+          arXiv:{paper.arxiv_id}
+        </a>
+      )}
+      <a class="hover:text-accent" href={`https://inspirehep.net/literature/${paper.inspire_id}`}>
+        INSPIRE
+      </a>
+    </div>
+  </div>
+  <div class="text-right">
+    <div class="font-mono text-[11px] text-accent">{venueLine}</div>
+    <div class="font-mono text-[10px] text-ink-3 mt-1">{paper.citation_count} cites</div>
+  </div>
+</article>
