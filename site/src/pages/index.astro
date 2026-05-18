@@ -16,17 +16,17 @@ const totals = {
 ---
 <Base title="Yan-Ke Chen — academic homepage">
   <!-- § I · CURRENTLY -->
-  <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
-    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
-      <span class="block text-[11px] text-mark mb-1">§ I</span>CURRENTLY
+  <section class="pt-8 md:pt-10 md:grid md:grid-cols-[90px_1fr] md:gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 md:pt-1 mb-3 md:mb-0">
+      <span class="text-mark mr-2 md:block md:mb-1 md:mr-0">§ I</span>CURRENTLY
     </div>
     <div>
-      <div class="grid grid-cols-[1fr_0.42fr] gap-10 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_0.42fr] gap-6 md:gap-10 items-start">
         <div>
-          <h1 class="text-[clamp(40px,5.4vw,60px)] font-semibold tracking-tightest leading-[1.02] text-ink mb-3.5">
+          <h1 class="text-[clamp(34px,8vw,60px)] font-semibold tracking-tightest leading-[1.02] text-ink mb-3.5">
             Yan-Ke Chen
           </h1>
-          <p class="text-[17px] leading-relaxed text-ink-2 max-w-[48ch]">
+          <p class="text-[15px] md:text-[17px] leading-relaxed text-ink-2 md:max-w-[48ch]">
             <span class="inline-block w-1.5 h-1.5 bg-mark rounded-full mr-1 align-middle pulse-dot"></span>
             Postdoctoral researcher at the
             <em class="not-italic font-medium text-mark">Center for High Energy Physics, Peking University</em>.
@@ -34,7 +34,7 @@ const totals = {
             and electromagnetic properties of hadrons via χPT and quark potential models.
           </p>
         </div>
-        <div>
+        <div class="max-w-[280px] md:max-w-none mx-auto md:mx-0 w-full">
           <img src="/photo.png" alt="" class="w-full rounded-sm" />
           <div class="font-mono text-[10px] uppercase tracking-wider text-ink-3 mt-2 flex justify-between">
             <span>CHEP · PKU</span><span>Jul 2025 →</span>
@@ -43,15 +43,23 @@ const totals = {
       </div>
 
       <!-- by the numbers -->
-      <div class="mt-7 grid grid-cols-4 border-t border-ink border-b border-rule">
+      <div class="mt-7 grid grid-cols-2 md:grid-cols-4 border-t border-ink border-b border-rule">
         {[
           { v: totals.papers, l: 'Papers' },
           { v: totals.citations, l: 'Citations' },
           { v: totals.hIndex, l: 'h-index' },
           { v: totals.coauthors, l: 'Co-authors' },
         ].map((s, i) => (
-          <div class:list={["py-3.5 px-4 pr-4", i < 3 && "border-r border-rule"]}>
-            <b class="block text-[32px] font-medium tracking-tight text-ink tabular-nums">{s.v}</b>
+          <div class:list={[
+            "py-3.5 px-4",
+            // Mobile (2 cols): right border on left cells (even idx); bottom border on top row
+            i % 2 === 0 && "border-r border-rule",
+            i < 2 && "border-b border-rule md:border-b-0",
+            // Desktop (4 cols): right border between every cell except last
+            "md:border-r md:border-rule",
+            i === 3 && "md:border-r-0",
+          ]}>
+            <b class="block text-[28px] md:text-[32px] font-medium tracking-tight text-ink tabular-nums">{s.v}</b>
             <span class="block font-mono text-[10px] tracking-widest text-ink-3 uppercase mt-0.5">{s.l}</span>
           </div>
         ))}
@@ -60,12 +68,12 @@ const totals = {
   </section>
 
   <!-- § II · RECENT -->
-  <section class="pt-12 grid grid-cols-[90px_1fr] gap-6">
-    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
-      <span class="block text-[11px] text-mark mb-1">§ II</span>RECENT
+  <section class="pt-10 md:pt-12 md:grid md:grid-cols-[90px_1fr] md:gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 md:pt-1 mb-3 md:mb-0">
+      <span class="text-mark mr-2 md:block md:mb-1 md:mr-0">§ II</span>RECENT
     </div>
     <div>
-      <h2 class="text-[24px] font-medium tracking-tight mb-3">
+      <h2 class="text-[20px] md:text-[24px] font-medium tracking-tight mb-3">
         Five most recent papers
       </h2>
       <div>
@@ -75,13 +83,13 @@ const totals = {
   </section>
 
   <!-- § III · THEMES -->
-  <section class="pt-12 grid grid-cols-[90px_1fr] gap-6">
-    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
-      <span class="block text-[11px] text-mark mb-1">§ III</span>THEMES
+  <section class="pt-10 md:pt-12 md:grid md:grid-cols-[90px_1fr] md:gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 md:pt-1 mb-3 md:mb-0">
+      <span class="text-mark mr-2 md:block md:mb-1 md:mr-0">§ III</span>THEMES
     </div>
     <div>
-      <h2 class="text-[24px] font-medium tracking-tight mb-3">Research themes</h2>
-      <div class="grid grid-cols-2 gap-px bg-rule border border-rule">
+      <h2 class="text-[20px] md:text-[24px] font-medium tracking-tight mb-3">Research themes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-rule border border-rule">
         <ThemeCard
           title="Quark models"
           bodyTex={"Tetraquark bound states and resonances using constituent quark models, complex scaling, and diffusion Monte Carlo — including fully heavy $QQ\\bar{Q}\\bar{Q}$ states."}

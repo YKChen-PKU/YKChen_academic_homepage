@@ -8,12 +8,12 @@ const years = [...new Set(papers.map((p) => p.year))].sort((a, b) => b - a);
 const themes = Object.keys(bundle.themes);
 ---
 <Base title="Publications — Yan-Ke Chen">
-  <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
-    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
-      <span class="block text-[11px] text-mark mb-1">§</span>ALL
+  <section class="pt-8 md:pt-10 md:grid md:grid-cols-[90px_1fr] md:gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 md:pt-1 mb-3 md:mb-0">
+      <span class="text-mark mr-2 md:block md:mb-1 md:mr-0">§</span>ALL
     </div>
     <div>
-      <h1 class="text-[36px] font-semibold tracking-tightest text-ink mb-2">Publications</h1>
+      <h1 class="text-[28px] md:text-[36px] font-semibold tracking-tightest text-ink mb-2">Publications</h1>
       <p class="text-[14px] text-ink-2 mb-6">
         {papers.length} papers · {papers.reduce((s, p) => s + p.citation_count, 0)} citations.
       </p>
@@ -21,21 +21,21 @@ const themes = Object.keys(bundle.themes);
       <!-- filter chips: one group per row -->
       <div class="mb-6 space-y-2 text-[11px] font-mono uppercase">
         <div class="flex flex-wrap items-baseline gap-2">
-          <span class="w-[72px] text-ink-3">Year</span>
+          <span class="w-[60px] md:w-[72px] text-ink-3">Year</span>
           <button class="filter-chip" data-filter-group="year" data-filter-value="all" data-active="true">All</button>
           {years.map((y) => (
             <button class="filter-chip" data-filter-group="year" data-filter-value={String(y)}>{y}</button>
           ))}
         </div>
         <div class="flex flex-wrap items-baseline gap-2">
-          <span class="w-[72px] text-ink-3">Theme</span>
+          <span class="w-[60px] md:w-[72px] text-ink-3">Theme</span>
           <button class="filter-chip" data-filter-group="theme" data-filter-value="all" data-active="true">All</button>
           {themes.map((t) => (
             <button class="filter-chip" data-filter-group="theme" data-filter-value={t}>{themeLabel(t)}</button>
           ))}
         </div>
         <div class="flex flex-wrap items-baseline gap-2">
-          <span class="w-[72px] text-ink-3">Position</span>
+          <span class="w-[60px] md:w-[72px] text-ink-3">Position</span>
           <button class="filter-chip" data-filter-group="position" data-filter-value="all" data-active="true">Any</button>
           <button class="filter-chip" data-filter-group="position" data-filter-value="first">First</button>
           <button class="filter-chip" data-filter-group="position" data-filter-value="middle">Middle</button>

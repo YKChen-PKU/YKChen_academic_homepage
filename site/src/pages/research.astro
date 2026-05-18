@@ -54,14 +54,14 @@ for (const theme of themes) {
 ---
 <Base title="Research — Yan-Ke Chen">
   {themes.map((t) => (
-    <section id={t.slug} class="pt-12 grid grid-cols-[90px_1fr] gap-6 scroll-mt-12">
-      <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
-        <span class="block text-[11px] text-mark mb-1">{t.marker}</span>{t.shortTag}
+    <section id={t.slug} class="pt-10 md:pt-12 md:grid md:grid-cols-[90px_1fr] md:gap-6 scroll-mt-12">
+      <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 md:pt-1 mb-3 md:mb-0">
+        <span class="text-mark mr-2 md:block md:mb-1 md:mr-0">{t.marker}</span>{t.shortTag}
       </div>
       <div>
-        <h2 class="text-[28px] font-medium tracking-tight text-ink mb-3">{t.title}</h2>
+        <h2 class="text-[22px] md:text-[28px] font-medium tracking-tight text-ink mb-3">{t.title}</h2>
         <p
-          class="text-[15px] text-ink-2 leading-relaxed max-w-[68ch]"
+          class="text-[14px] md:text-[15px] text-ink-2 leading-relaxed md:max-w-[68ch]"
           set:html={renderInlineMath(t.introTex)}
         />
         <div class="mt-6">

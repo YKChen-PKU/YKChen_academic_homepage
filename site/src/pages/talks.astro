@@ -14,21 +14,22 @@ interface Talk {
 const talks = yaml.load(talksFile) as { oral: Talk[]; poster: Talk[] };
 ---
 <Base title="Talks — Yan-Ke Chen">
-  <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
-    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
-      <span class="block text-[11px] text-mark mb-1">§ I</span>ORAL
+  <section class="pt-8 md:pt-10 md:grid md:grid-cols-[90px_1fr] md:gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 md:pt-1 mb-3 md:mb-0">
+      <span class="text-mark mr-2 md:block md:mb-1 md:mr-0">§ I</span>ORAL
     </div>
     <div>
-      <h2 class="text-[24px] font-medium tracking-tight text-ink mb-3">Oral Presentations</h2>
+      <h2 class="text-[20px] md:text-[24px] font-medium tracking-tight text-ink mb-3">Oral Presentations</h2>
       <div>
         {talks.oral.map((t) => (
-          <article class="grid grid-cols-[1fr_180px] py-4 border-b border-rule-2 gap-4 items-baseline">
+          <article class="grid grid-cols-1 md:grid-cols-[1fr_180px] py-4 border-b border-rule-2 gap-1 md:gap-4 md:items-baseline">
             <div>
-              <div class="text-[15px] font-medium text-ink">{t.event}</div>
-              <div class="italic text-[14px] text-ink-2 mt-1" set:html={renderInlineMath(t.title)} />
+              <div class="text-[14px] md:text-[15px] font-medium text-ink">{t.event}</div>
+              <div class="italic text-[13px] md:text-[14px] text-ink-2 mt-1" set:html={renderInlineMath(t.title)} />
             </div>
-            <div class="text-right font-mono text-[11px] text-ink-3 leading-relaxed">
-              {t.location}<br />{t.date}
+            <div class="font-mono text-[11px] text-ink-3 md:text-right leading-relaxed">
+              <span class="md:hidden">{t.location} · {t.date}</span>
+              <span class="hidden md:inline">{t.location}<br />{t.date}</span>
             </div>
           </article>
         ))}
@@ -36,21 +37,22 @@ const talks = yaml.load(talksFile) as { oral: Talk[]; poster: Talk[] };
     </div>
   </section>
 
-  <section class="pt-12 grid grid-cols-[90px_1fr] gap-6">
-    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
-      <span class="block text-[11px] text-mark mb-1">§ II</span>POSTER
+  <section class="pt-10 md:pt-12 md:grid md:grid-cols-[90px_1fr] md:gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 md:pt-1 mb-3 md:mb-0">
+      <span class="text-mark mr-2 md:block md:mb-1 md:mr-0">§ II</span>POSTER
     </div>
     <div>
-      <h2 class="text-[24px] font-medium tracking-tight text-ink mb-3">Poster Presentations</h2>
+      <h2 class="text-[20px] md:text-[24px] font-medium tracking-tight text-ink mb-3">Poster Presentations</h2>
       <div>
         {talks.poster.map((t) => (
-          <article class="grid grid-cols-[1fr_180px] py-4 border-b border-rule-2 gap-4 items-baseline">
+          <article class="grid grid-cols-1 md:grid-cols-[1fr_180px] py-4 border-b border-rule-2 gap-1 md:gap-4 md:items-baseline">
             <div>
-              <div class="text-[15px] font-medium text-ink">{t.event}</div>
-              <div class="italic text-[14px] text-ink-2 mt-1" set:html={renderInlineMath(t.title)} />
+              <div class="text-[14px] md:text-[15px] font-medium text-ink">{t.event}</div>
+              <div class="italic text-[13px] md:text-[14px] text-ink-2 mt-1" set:html={renderInlineMath(t.title)} />
             </div>
-            <div class="text-right font-mono text-[11px] text-ink-3 leading-relaxed">
-              {t.location}<br />{t.date}
+            <div class="font-mono text-[11px] text-ink-3 md:text-right leading-relaxed">
+              <span class="md:hidden">{t.location} · {t.date}</span>
+              <span class="hidden md:inline">{t.location}<br />{t.date}</span>
             </div>
           </article>
         ))}

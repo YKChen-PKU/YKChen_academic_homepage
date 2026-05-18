@@ -8,12 +8,15 @@ const links = [
   { href: '/cv', label: 'CV' },
 ];
 ---
-<nav aria-label="primary" class="flex items-baseline justify-between border-b border-rule pb-4">
+<nav
+  aria-label="primary"
+  class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-3 md:gap-0 border-b border-rule pb-4"
+>
   <a href="/" class="text-[15px] font-semibold tracking-tight text-ink hover:text-accent transition-colors">
     Yan-Ke Chen
     <span class="font-normal text-ink-3 text-[13px] ml-1">陈炎柯</span>
   </a>
-  <ul class="flex gap-6 text-[12px] font-medium tracking-[0.08em] uppercase font-mono text-ink-2">
+  <ul class="flex flex-wrap gap-x-5 gap-y-1.5 md:gap-6 text-[12px] font-medium tracking-[0.08em] uppercase font-mono text-ink-2">
     {links.map((l) => (
       <li>
         <a
