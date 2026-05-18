@@ -1,0 +1,24 @@
+---
+import katex from 'katex';
+
+interface Props {
+  tex: string;
+  displayMode?: boolean;
+}
+
+const { tex, displayMode = false } = Astro.props;
+
+let html: string;
+try {
+  html = katex.renderToString(tex, {
+    displayMode,
+    throwOnError: false,
+    output: 'html',
+    strict: 'ignore',
+  });
+} catch (e) {
+  console.warn('KaTeX render failed:', tex, e);
+  html = `<span>${tex}</span>`;
+}
+---
+<span class="katex-host" set:html={html}></span>
