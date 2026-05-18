@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import 'katex/dist/katex.min.css';
+
+@theme {
+  --color-paper:   #F6F4EE;
+  --color-paper-2: #EFEBE1;
+  --color-ink:     #15120E;
+  --color-ink-2:   #4C463D;
+  --color-ink-3:   #8C8579;
+  --color-rule:    #DCD5C5;
+  --color-rule-2:  #ECE6D6;
+  --color-accent:  #1B2E5E;
+  --color-mark:    #B0492A;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --tracking-tightest: -0.035em;
+}
+
+:root { color-scheme: light; }
+
+html, body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Paper-feel noise overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2"/></filter><rect width="100%25" height="100%25" filter="url(%23n)" opacity="0.4"/></svg>');
+  mix-blend-mode: multiply;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.katex { font-size: 1em !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
