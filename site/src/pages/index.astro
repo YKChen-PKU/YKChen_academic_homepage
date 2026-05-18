@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import { bundle } from '../lib/data';
+import PaperRow from '../components/PaperRow.astro';
+import ThemeCard from '../components/ThemeCard.astro';
+import { renderInlineMath } from '../lib/math';
+
+// Five selected papers: 3 newest first-author + top 2 most-cited first-author
+const firstAuthorPapers = bundle.papers.filter(
+  (p) => p.author_position === 'first' || p.author_position === 'sole',
+);
+const newest = [...firstAuthorPapers].sort((a, b) => b.year - a.year).slice(0, 3);
+const mostCited = [...firstAuthorPapers]
+  .sort((a, b) => b.citation_count - a.citation_count)
+  .filter((p) => !newest.includes(p))
+  .slice(0, 2);
+const highlights = [...newest, ...mostCited].sort((a, b) => b.year - a.year);
+
+const totals = {
+  papers: bundle.papers.length,
+  citations: bundle.papers.reduce((s, p) => s + p.citation_count, 0),
+  hIndex: Math.max(...Object.values(bundle.metrics.h_index_curve), 0),
+  coauthors: bundle.metrics.coauthor_graph.nodes.length,
+};
+
+const latest = [...bundle.papers].sort((a, b) => b.year - a.year)[0];
+---
+<Base title="Yan-Ke Chen — academic homepage">
+  <!-- § I · CURRENTLY -->
+  <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+      <span class="block text-[11px] text-mark mb-1">§ I</span>CURRENTLY
+    </div>
+    <div>
+      <div class="grid grid-cols-[1fr_0.42fr] gap-10 items-start">
+        <div>
+          <h1 class="text-[clamp(40px,5.4vw,60px)] font-semibold tracking-tightest leading-[1.02] text-ink mb-3.5">
+            Yan-Ke Chen
+          </h1>
+          <p class="text-[17px] leading-relaxed text-ink-2 max-w-[48ch]">
+            <span class="inline-block w-1.5 h-1.5 bg-mark rounded-full mr-1 align-middle pulse-dot"></span>
+            Postdoctoral researcher at the
+            <em class="not-italic font-medium text-mark">Center for High Energy Physics, Peking University</em>.
+            I study hadron spectroscopy, exotic states, low-energy hadron interactions,
+            and electromagnetic properties of hadrons via χPT and quark potential models.
+          </p>
+        </div>
+        <div>
+          <img src="/photo.png" alt="" class="w-full aspect-square object-cover rounded-sm" />
+          <div class="font-mono text-[10px] uppercase tracking-wider text-ink-3 mt-2 flex justify-between">
+            <span>CHEP · PKU</span><span>Jul 2025 →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- by the numbers -->
+      <div class="mt-7 grid grid-cols-4 border-t border-ink border-b border-rule">
+        {[
+          { v: totals.papers, l: 'Papers' },
+          { v: totals.citations, l: 'Citations' },
+          { v: totals.hIndex, l: 'h-index' },
+          { v: totals.coauthors, l: 'Co-authors' },
+        ].map((s, i) => (
+          <div class:list={["py-3.5 px-4 pr-4", i < 3 && "border-r border-rule"]}>
+            <b class="block text-[32px] font-medium tracking-tight text-ink tabular-nums">{s.v}</b>
+            <span class="block font-mono text-[10px] tracking-widest text-ink-3 uppercase mt-0.5">{s.l}</span>
+          </div>
+        ))}
+      </div>
+
+      {latest && (
+        <div class="mt-6 pt-3 border-t border-dashed border-rule font-mono text-[11px] text-ink-2">
+          <strong class="text-mark">arXiv:{latest.arxiv_id}</strong>
+          — <span class="italic" set:html={renderInlineMath(latest.title)} />
+          · <i>{latest.year}</i>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- § II · SELECTED PAPERS -->
+  <section class="pt-12 grid grid-cols-[90px_1fr] gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+      <span class="block text-[11px] text-mark mb-1">§ II</span>SELECTED
+    </div>
+    <div>
+      <h2 class="text-[24px] font-medium tracking-tight mb-3">
+        Recent work
+        <em class="not-italic text-ink-3 font-normal ml-1">— five selected</em>
+      </h2>
+      <div>
+        {highlights.map((p) => <PaperRow paper={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- § III · THEMES -->
+  <section class="pt-12 grid grid-cols-[90px_1fr] gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+      <span class="block text-[11px] text-mark mb-1">§ III</span>THEMES
+    </div>
+    <div>
+      <h2 class="text-[24px] font-medium tracking-tight mb-3">Research themes</h2>
+      <div class="grid grid-cols-2 gap-px bg-rule border border-rule">
+        <ThemeCard
+          title="Spectrum from quark models"
+          bodyTex="Tetraquark bound states and resonances using constituent quark models, complex scaling, and diffusion Monte Carlo — including fully heavy $QQ\bar{Q}\bar{Q}$ states."
+          href="/research#spectrum"
+        />
+        <ThemeCard
+          title="Hadron-hadron interaction"
+          bodyTex="Coupled-channel dynamics for the $X(3872)$ pole structure, virtual states, and three-body molecular states like $DD^*\bar{K}^*$."
+          href="/research#interaction"
+        />
+        <ThemeCard
+          title="Electromagnetic properties"
+          bodyTex="HBχPT calculations of polarizabilities for spin-$\tfrac{1}{2}$ and spin-$\tfrac{3}{2}$ singly heavy baryons and heavy triplet hadrons."
+          href="/research#em"
+        />
+        <ThemeCard
+          title="Production of exotic states"
+          bodyTex="Branching fractions in $B^-\to D^- X_{0,1}(2900)$ and hidden-charm strange molecular states in $B$ and $B_s$ decays."
+          href="/research#production"
+        />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pulse-dot {
+    box-shadow: 0 0 0 0 rgba(176, 73, 42, 0.6);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(176,73,42,.6); }
+    70% { box-shadow: 0 0 0 8px rgba(176,73,42,0); }
+    100% { box-shadow: 0 0 0 0 rgba(176,73,42,0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-dot { animation: none; }
+  }
+</style>
