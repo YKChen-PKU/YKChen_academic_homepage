@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import { bundle } from '../lib/data';
+import PaperRow from '../components/PaperRow.astro';
+import { renderInlineMath } from '../lib/math';
+
+interface Theme {
+  slug: string;          // URL hash + matches themes.yaml key
+  marker: string;
+  shortTag: string;
+  title: string;
+  introTex: string;
+}
+
+// slug matches site/src/data/themes.yaml keys verbatim.
+const themes: Theme[] = [
+  {
+    slug: 'spectrum_quark_models',
+    marker: '§ I',
+    shortTag: 'SPECTRUM',
+    title: 'Spectrum from quark models',
+    introTex: 'TBD — write a 2-3 paragraph intro covering the unified $Qs\\bar{q}\\bar{q}$ description, fully heavy $QQ\\bar{Q}\\bar{Q}$ benchmark calculations, complex-scaling, and the diffusion-Monte-Carlo program on doubly-heavy tetraquarks.',
+  },
+  {
+    slug: 'exotic_interactions',
+    marker: '§ II',
+    shortTag: 'INTERACTION',
+    title: 'Hadron-hadron interaction',
+    introTex: 'TBD — write an intro on the coupled-channel work around the $X(3872)$ pole, virtual states, and the recent $DD^*\\bar{K}^*$ three-body molecular state prediction.',
+  },
+  {
+    slug: 'em_chiPT',
+    marker: '§ III',
+    shortTag: 'EM',
+    title: 'Electromagnetic properties',
+    introTex: 'TBD — describe the HBχPT polarizability program for spin-$\\tfrac{1}{2}$ and spin-$\\tfrac{3}{2}$ singly heavy baryons and heavy triplet hadrons.',
+  },
+  {
+    slug: 'production',
+    marker: '§ IV',
+    shortTag: 'PRODUCTION',
+    title: 'Production of exotic states',
+    introTex: 'TBD — describe the $B$- and $B_s$-decay branching-fraction work, including $B^-\\to D^- X_{0,1}(2900)$ and hidden-charm strange molecular candidates.',
+  },
+];
+
+const themePapers: Record<string, typeof bundle.papers> = {};
+for (const theme of themes) {
+  const ids = new Set(bundle.themes[theme.slug] ?? []);
+  themePapers[theme.slug] = bundle.papers
+    .filter((p) => ids.has(p.arxiv_id))
+    .sort((a, b) => b.year - a.year);
+}
+---
+<Base title="Research — Yan-Ke Chen">
+  {themes.map((t) => (
+    <section id={t.slug} class="pt-12 grid grid-cols-[90px_1fr] gap-6 scroll-mt-12">
+      <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+        <span class="block text-[11px] text-mark mb-1">{t.marker}</span>{t.shortTag}
+      </div>
+      <div>
+        <h2 class="text-[28px] font-medium tracking-tight text-ink mb-3">{t.title}</h2>
+        <p
+          class="text-[15px] text-ink-2 leading-relaxed max-w-[68ch]"
+          set:html={renderInlineMath(t.introTex)}
+        />
+        <div class="mt-6">
+          {themePapers[t.slug].length === 0 ? (
+            <p class="text-[12px] font-mono text-ink-3 italic">No papers tagged with this theme yet.</p>
+          ) : (
+            themePapers[t.slug].map((p) => <PaperRow paper={p} />)
+          )}
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>
