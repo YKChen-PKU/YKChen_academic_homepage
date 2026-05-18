@@ -1,0 +1,23 @@
+---
+import { refreshedLabel } from '../lib/data';
+
+// TBD links — YK fills these in later (see spec §10).
+const orcid = '';
+const scholar = '';
+const github = '';
+---
+<footer class="mt-16 pt-6 border-t border-rule text-[12px] font-mono text-ink-3 flex flex-wrap gap-x-6 gap-y-2 justify-between">
+  <div>
+    Data from
+    <a class="text-accent hover:text-ink" href="https://inspirehep.net/authors/2182746">INSPIRE-HEP</a>
+    · refreshed {refreshedLabel}
+  </div>
+  <div class="flex gap-4">
+    <a class="hover:text-accent" href="https://inspirehep.net/authors/2182746">INSPIRE</a>
+    {orcid && <a class="hover:text-accent" href={`https://orcid.org/${orcid}`}>ORCID</a>}
+    {scholar && <a class="hover:text-accent" href={scholar}>Scholar</a>}
+    {github && <a class="hover:text-accent" href={`https://github.com/${github}`}>GitHub</a>}
+    <a class="hover:text-accent" href="mailto:chenyanke@pku.edu.cn">Email</a>
+  </div>
+  <div>© {new Date().getFullYear()} Yan-Ke Chen</div>
+</footer>

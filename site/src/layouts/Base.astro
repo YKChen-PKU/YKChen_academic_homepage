@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Personal academic homepage of Yan-Ke Chen' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/png" href="/photo.png" />
+  </head>
+  <body class="relative">
+    <div class="relative z-10 max-w-[1180px] mx-auto px-[clamp(1.75rem,5vw,3.5rem)] py-10">
+      <Nav />
+      <main class="mt-2"><slot /></main>
+      <Footer />
+    </div>
+  </body>
+</html>

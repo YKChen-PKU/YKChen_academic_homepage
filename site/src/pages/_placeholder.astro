@@ -1,7 +1,8 @@
 ---
-import '../styles/global.css';
+import Base from '../layouts/Base.astro';
+import { bundle } from '../lib/data';
 ---
-<!doctype html>
-<html lang="en"><head><title>Placeholder</title></head>
-<body class="bg-paper text-ink font-sans p-8">Phase A smoke test — replaced in Phase D.</body>
-</html>
+<Base title="Placeholder">
+  <p class="text-ink-2 mt-4">Phase C wiring smoke test — replaced in Phase D.</p>
+  <p class="font-mono text-[12px] text-ink-3 mt-2">{bundle.papers.length} papers loaded.</p>
+</Base>
