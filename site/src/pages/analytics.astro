@@ -28,19 +28,28 @@ import TopicTreemap from '../components/analytics/TopicTreemap.astro';
   </section>
 
   <div class="mt-10 space-y-6">
-    <CoauthorNetwork />
+    <!-- Row 1: Papers per year | Journal split -->
     <div class="grid md:grid-cols-2 gap-6">
       <PapersPerYear />
-      <CitationsCumulative />
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <HIndexCurve />
-      <AuthorPosition />
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <TopCited />
       <JournalSplit />
     </div>
+
+    <!-- Row 2: Citations | h-index trajectory -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <CitationsCumulative />
+      <HIndexCurve />
+    </div>
+
+    <!-- Row 3: Co-author network | Author position -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <CoauthorNetwork />
+      <AuthorPosition />
+    </div>
+
+    <!-- Row 4: Most-cited (full width) -->
+    <TopCited />
+
+    <!-- Row 5: Topic treemap (full width) -->
     <TopicTreemap />
   </div>
 </Base>

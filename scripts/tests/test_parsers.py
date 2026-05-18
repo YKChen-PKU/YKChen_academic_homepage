@@ -66,6 +66,37 @@ def test_parse_falls_back_to_preprint_date_when_no_pub_info():
     assert p.journal_ref is None
 
 
+def test_swapped_bai_does_not_misidentify_dian_yong_chen():
+    """Real bug from arXiv:2302.01696 — INSPIRE has BAIs swapped between
+    Chen, Yan-Ke and Chen, Dian-Yong. Name-only matching avoids the trap.
+    """
+    raw = {
+        'id': '999',
+        'metadata': {
+            'titles': [{'source': 'arXiv', 'title': 'Hunting for hidden-charm'}],
+            'authors': [
+                {'full_name': 'Wu, Qi'},
+                # Real Yan-Ke, but INSPIRE put Dian-Yong's BAI on him
+                {'full_name': 'Chen, Yan-Ke',
+                 'ids': [{'schema': 'INSPIRE BAI', 'value': 'Dian.Yong.Chen.1'}]},
+                {'full_name': 'Li, Gang'},
+                {'full_name': 'Liu, Shi-Dong'},
+                # Real Dian-Yong, but INSPIRE put Yan-Ke's BAI on him
+                {'full_name': 'Chen, Dian-Yong',
+                 'ids': [{'schema': 'INSPIRE BAI', 'value': 'Yan.Ke.Chen.1'}]},
+            ],
+            'arxiv_eprints': [{'value': '2302.01696', 'categories': ['hep-ph']}],
+            'publication_info': [{'journal_title': 'Phys. Rev. D', 'year': 2023}],
+        },
+    }
+    p = parse_paper(raw)
+    yks = [a for a in p.authors if a.is_yk]
+    assert len(yks) == 1
+    assert yks[0].name == 'Chen, Yan-Ke'
+    # Position should be 'middle' (index 1 of 5), not 'last'
+    assert p.author_position == 'middle'
+
+
 def test_parse_year_from_arxiv_id_when_no_dates():
     raw = {
         'id': '999',

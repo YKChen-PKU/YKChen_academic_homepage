@@ -18,22 +18,29 @@ const themes = Object.keys(bundle.themes);
         {papers.length} papers · {papers.reduce((s, p) => s + p.citation_count, 0)} citations.
       </p>
 
-      <!-- filter chips -->
-      <div class="mb-6 flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase">
-        <button class="filter-chip" data-filter-group="year" data-filter-value="all" data-active="true">All years</button>
-        {years.map((y) => (
-          <button class="filter-chip" data-filter-group="year" data-filter-value={String(y)}>{y}</button>
-        ))}
-        <span class="mx-2 text-ink-3">·</span>
-        <button class="filter-chip" data-filter-group="theme" data-filter-value="all" data-active="true">All themes</button>
-        {themes.map((t) => (
-          <button class="filter-chip" data-filter-group="theme" data-filter-value={t}>{t.replace(/_/g, ' ')}</button>
-        ))}
-        <span class="mx-2 text-ink-3">·</span>
-        <button class="filter-chip" data-filter-group="position" data-filter-value="all" data-active="true">Any position</button>
-        <button class="filter-chip" data-filter-group="position" data-filter-value="first">First</button>
-        <button class="filter-chip" data-filter-group="position" data-filter-value="middle">Middle</button>
-        <button class="filter-chip" data-filter-group="position" data-filter-value="last">Last</button>
+      <!-- filter chips: one group per row -->
+      <div class="mb-6 space-y-2 text-[11px] font-mono uppercase">
+        <div class="flex flex-wrap items-baseline gap-2">
+          <span class="w-[72px] text-ink-3">Year</span>
+          <button class="filter-chip" data-filter-group="year" data-filter-value="all" data-active="true">All</button>
+          {years.map((y) => (
+            <button class="filter-chip" data-filter-group="year" data-filter-value={String(y)}>{y}</button>
+          ))}
+        </div>
+        <div class="flex flex-wrap items-baseline gap-2">
+          <span class="w-[72px] text-ink-3">Theme</span>
+          <button class="filter-chip" data-filter-group="theme" data-filter-value="all" data-active="true">All</button>
+          {themes.map((t) => (
+            <button class="filter-chip" data-filter-group="theme" data-filter-value={t}>{t.replace(/_/g, ' ')}</button>
+          ))}
+        </div>
+        <div class="flex flex-wrap items-baseline gap-2">
+          <span class="w-[72px] text-ink-3">Position</span>
+          <button class="filter-chip" data-filter-group="position" data-filter-value="all" data-active="true">Any</button>
+          <button class="filter-chip" data-filter-group="position" data-filter-value="first">First</button>
+          <button class="filter-chip" data-filter-group="position" data-filter-value="middle">Middle</button>
+          <button class="filter-chip" data-filter-group="position" data-filter-value="last">Last</button>
+        </div>
       </div>
 
       <div id="paper-list">

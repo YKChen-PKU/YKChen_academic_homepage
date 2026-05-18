@@ -37,18 +37,18 @@ const now = new Date().getUTCFullYear();
     data: { labels: number[]; first: number[]; middle: number[]; last: number[] };
     currentYear: number;
   };
-  const firstColors = data.labels.map((y) =>
-    y === currentYear ? '#B0492A' : '#1B2E5E',
-  );
+  // Palette unified with the Author Position donut:
+  //   first/sole = indigo, middle = sienna, last = rule (light gray)
+  void currentYear;
 
   new Chart(canvas, {
     type: 'bar',
     data: {
       labels: data.labels,
       datasets: [
-        { label: 'First / sole', data: data.first, backgroundColor: firstColors, stack: 's' },
-        { label: 'Middle', data: data.middle, backgroundColor: '#DCD5C5', stack: 's' },
-        { label: 'Last', data: data.last, backgroundColor: '#8C8579', stack: 's' },
+        { label: 'First / sole', data: data.first, backgroundColor: '#1B2E5E', stack: 's' },
+        { label: 'Middle', data: data.middle, backgroundColor: '#B0492A', stack: 's' },
+        { label: 'Last', data: data.last, backgroundColor: '#DCD5C5', stack: 's' },
       ],
     },
     options: {

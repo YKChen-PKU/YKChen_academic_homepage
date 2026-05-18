@@ -5,15 +5,19 @@ from typing import Any, Optional
 
 from scripts.models import Author, AuthorPosition, JournalRef, Paper
 
-YK_BAI = 'Yan.Ke.Chen.1'   # INSPIRE BAI identifier — primary lookup key
-YK_NAME_HINTS = ('Chen, Yan-Ke', 'Y. K. Chen', 'Yan-Ke Chen')
+YK_BAI = 'Yan.Ke.Chen.1'   # YK's INSPIRE BAI — used by tests; NOT a trust anchor
 
 
 def _is_yk(raw_author: dict[str, Any]) -> bool:
-    for ident in raw_author.get('ids') or []:
-        if ident.get('schema') == 'INSPIRE BAI' and ident.get('value') == YK_BAI:
-            return True
-    return raw_author.get('full_name', '') in YK_NAME_HINTS
+    """Identify YK by name only.
+
+    INSPIRE BAI assignments are occasionally swapped between similarly-named
+    authors (observed on arXiv:2302.01696 where Chen, Yan-Ke and Chen, Dian-Yong
+    have each other's BAIs). Names with 'Yan-Ke' are unique enough in hep-ph
+    that name matching is more reliable than BAI matching.
+    """
+    name = raw_author.get('full_name', '')
+    return 'Yan-Ke' in name or name in ('Y. K. Chen', 'Y.K. Chen')
 
 
 def _pick_title(titles: list[dict[str, Any]]) -> str:
