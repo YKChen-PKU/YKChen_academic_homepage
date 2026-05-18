@@ -43,3 +43,6 @@ scripts/.cache/
 .env
 .env.*
 .claude/
+
+# Superpowers brainstorm sessions
+.superpowers/
