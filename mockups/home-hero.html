@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Style v2 — A layout × B typography</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$',right:'$',display:false},{left:'$$',right:'$$',display:true}]})"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper:    #F6F4EE;
+    --paper-2:  #EFEBE1;
+    --ink:      #15120E;
+    --ink-2:    #4C463D;
+    --ink-3:    #8C8579;
+    --rule:     #DCD5C5;
+    --rule-2:   #ECE6D6;
+    --accent:   #1B2E5E;
+    --mark:     #B0492A;
+  }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { padding: 24px; }
+  .frame {
+    max-width: 1180px; margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .frame-bar {
+    background: var(--paper-2);
+    padding: 10px 18px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: .08em;
+    color: var(--ink-3); text-transform: uppercase;
+    display: flex; justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+  }
+  .page { padding: 36px clamp(28px, 5vw, 56px) 48px; }
+
+  /* ---- NAV ---- */
+  .nav {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .brand {
+    font-weight: 600; font-size: 15px; letter-spacing: -0.015em; color: var(--ink);
+  }
+  .brand .zh { color: var(--ink-3); font-weight: 400; margin-left: 6px; font-size: 13px; }
+  .nav-links {
+    display: flex; gap: 24px;
+    font-size: 13px; font-weight: 500; color: var(--ink-2);
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .nav-links span { cursor: pointer; }
+
+  /* ---- MARGINALIA SECTION HEAD ---- */
+  .section { padding-top: 36px; display: grid; grid-template-columns: 90px 1fr; gap: 24px; }
+  .marker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-3);
+    padding-top: 6px;
+  }
+  .marker .num { color: var(--mark); display: block; font-size: 11px; font-weight: 500; }
+
+  /* ---- HERO ---- */
+  .hero { display: grid; grid-template-columns: 1fr 0.42fr; gap: 40px; align-items: start; }
+  .hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(40px, 5.4vw, 60px);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .hero .role {
+    font-size: 17px; line-height: 1.5; color: var(--ink-2);
+    max-width: 48ch; margin: 0;
+  }
+  .hero .role em {
+    font-style: normal; color: var(--mark); font-weight: 500;
+  }
+  .hero .role a {
+    color: var(--accent); text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px; background-position: 0 100%;
+    background-repeat: no-repeat;
+  }
+  .photo {
+    width: 100%; aspect-ratio: 1;
+    background-image: linear-gradient(135deg, #DCD5C5 0%, #B0492A 100%);
+    border-radius: 2px;
+  }
+  .photo-cap {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--ink-3);
+    letter-spacing: .1em; text-transform: uppercase;
+    margin-top: 8px; display: flex; justify-content: space-between;
+  }
+  .pulse-dot {
+    display: inline-block; width: 6px; height: 6px;
+    background: var(--mark); border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(176,73,42,.7);
+    animation: pulse 2.4s infinite;
+    margin-right: 4px;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(176,73,42,.6); }
+    70% { box-shadow: 0 0 0 8px rgba(176,73,42,0); }
+    100% { box-shadow: 0 0 0 0 rgba(176,73,42,0); }
+  }
+
+  /* ---- BY-THE-NUMBERS STRIP ---- */
+  .numbers {
+    margin-top: 28px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .num {
+    padding: 14px 16px 14px 0;
+    border-right: 1px solid var(--rule);
+  }
+  .num:last-child { border-right: none; }
+  .num b {
+    display: block; font-size: 32px; font-weight: 500;
+    letter-spacing: -0.025em; font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .num span {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: .12em;
+    color: var(--ink-3); text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ---- SELECTED PUBLICATIONS ---- */
+  .pubs { margin-top: 8px; }
+  .pub {
+    display: grid; grid-template-columns: 70px 1fr 110px;
+    gap: 20px; padding: 18px 0;
+    border-bottom: 1px solid var(--rule-2);
+    align-items: baseline;
+  }
+  .pub .year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--ink-3); letter-spacing: .08em;
+  }
+  .pub .title {
+    font-size: 16px; line-height: 1.4; color: var(--ink);
+    font-weight: 500;
+  }
+  .pub .title em {
+    font-style: italic; color: var(--ink-2); font-weight: 400;
+    display: block; margin-top: 4px; font-size: 13px;
+  }
+  .pub .venue {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--accent); letter-spacing: .04em;
+    text-align: right;
+  }
+  .pub .venue span { display: block; color: var(--ink-3); }
+
+  /* themes */
+  .themes {
+    margin-top: 8px;
+    display: grid; grid-template-columns: repeat(2,1fr); gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .theme { background: var(--paper); padding: 18px 20px; }
+  .theme b { display: block; font-weight: 500; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+  .theme p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+
+  h2.section-title {
+    font-family: 'Inter', sans-serif; font-weight: 500;
+    font-size: 24px; letter-spacing: -0.025em;
+    margin: 0 0 14px; color: var(--ink);
+  }
+  h2.section-title em {
+    font-style: normal; color: var(--ink-3); font-weight: 400; margin-left: 6px;
+  }
+
+  /* footnote / tagline strip */
+  .ticker {
+    margin-top: 26px;
+    padding: 10px 0;
+    border-top: 1px dashed var(--rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--ink-2); letter-spacing: .04em;
+    display: flex; gap: 24px; flex-wrap: wrap;
+  }
+  .ticker b { color: var(--mark); font-weight: 500; }
+  .ticker a { color: var(--accent); text-decoration: none; }
+
+  /* katex sizing override for body context */
+  .katex { font-size: 1em !important; }
+
+  /* selection card frame */
+  .picker {
+    max-width: 1180px; margin: 18px auto 0;
+    display: flex; gap: 12px; justify-content: flex-end;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  }
+  .pick-btn {
+    border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+    padding: 10px 16px; border-radius: 4px; cursor: pointer;
+    letter-spacing: .06em; text-transform: uppercase;
+    transition: all .15s ease;
+  }
+  .pick-btn:hover { background: var(--ink); color: var(--paper); }
+  .pick-btn.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+  .pick-btn.primary:hover { background: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="frame">
+  <div class="frame-bar">
+    <span>Style v2 · A layout + colors × B sans-serif typography · KaTeX live</span>
+    <span>home /</span>
+  </div>
+  <div class="page">
+
+    <div class="nav">
+      <div class="brand">Yan-Ke Chen <span class="zh">陈彦珂</span></div>
+      <div class="nav-links">
+        <span>Research</span><span>Publications</span><span>Talks</span><span>Analytics</span><span>CV</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="marker"><span class="num">§ I</span>CURRENTLY</div>
+      <div>
+        <div class="hero">
+          <div>
+            <h1>Yan-Ke Chen</h1>
+            <p class="role">
+              <span class="pulse-dot"></span>Postdoctoral researcher at the <em>Center for High Energy Physics, Peking University</em>. I study hadron spectroscopy, exotic states, low-energy hadron interactions, and electromagnetic properties of hadrons via χPT and quark potential models.
+            </p>
+          </div>
+          <div>
+            <div class="photo"></div>
+            <div class="photo-cap"><span>CHEP · PKU</span><span>Jul 2025 →</span></div>
+          </div>
+        </div>
+
+        <div class="numbers">
+          <div class="num"><b>18</b><span>Papers</span></div>
+          <div class="num"><b>312</b><span>Citations</span></div>
+          <div class="num"><b>14</b><span>h-index</span></div>
+          <div class="num"><b>11</b><span>Co-authors</span></div>
+        </div>
+
+        <div class="ticker">
+          <span><b>arXiv:2602.12010</b> — Existence of the $DD^*\bar{K}^*$ and $BB^*K^*$ three-body molecular states · <i>2026</i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="marker"><span class="num">§ II</span>SELECTED PAPERS</div>
+      <div>
+        <h2 class="section-title">Recent work <em>— five selected</em></h2>
+        <div class="pubs">
+          <div class="pub">
+            <div class="year">2026</div>
+            <div class="title">
+              Existence of the $DD^*\bar{K}^*$ and $BB^*K^*$ three-body molecular states
+              <em>Y. K. Chen, L. Meng, J. Z. Wang, S. L. Zhu</em>
+            </div>
+            <div class="venue">arXiv:2602.12010<span>preprint</span></div>
+          </div>
+          <div class="pub">
+            <div class="year">2025</div>
+            <div class="title">
+              Electromagnetic polarizabilities of the spin-$\tfrac{1}{2}$ singly heavy baryons in HBχPT
+              <em>Y. K. Chen, L. Z. Wen, L. Meng, S. L. Zhu</em>
+            </div>
+            <div class="venue">Phys. Rev. D<span>111, 054019</span></div>
+          </div>
+          <div class="pub">
+            <div class="year">2025</div>
+            <div class="title">
+              Probing the pole origin of $X(3872)$ with the coupled-channel dynamics
+              <em>J. Z. Wang, Z. Y. Lin, Y. K. Chen, L. Meng, S. L. Zhu</em>
+            </div>
+            <div class="venue">Phys. Rev. D<span>111, L111502</span></div>
+          </div>
+          <div class="pub">
+            <div class="year">2024</div>
+            <div class="title">
+              Virtual states in coupled-channel problems with an improved complex scaling method
+              <em>Y. K. Chen, L. Meng, Z. Y. Lin, S. L. Zhu</em>
+            </div>
+            <div class="venue">Phys. Rev. D<span>109, 034006</span></div>
+          </div>
+          <div class="pub">
+            <div class="year">2024</div>
+            <div class="title">
+              Unified description of $Qs\bar{q}\bar{q}$ molecular bound states, resonances, and compact tetraquarks in the quark potential model
+              <em>Y. K. Chen, W. L. Wu, L. Meng, S. L. Zhu</em>
+            </div>
+            <div class="venue">Phys. Rev. D<span>109, 014010</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="marker"><span class="num">§ III</span>RESEARCH THEMES</div>
+      <div>
+        <div class="themes">
+          <div class="theme"><b>Spectrum from quark models</b><p>Tetraquark bound states and resonances using constituent quark models, complex scaling, diffusion Monte Carlo — including fully heavy $QQ\bar{Q}\bar{Q}$ states.</p></div>
+          <div class="theme"><b>Hadron-hadron interaction</b><p>Coupled-channel dynamics for $X(3872)$ pole structure; virtual states; three-body molecular states like $DD^*\bar{K}^*$.</p></div>
+          <div class="theme"><b>Electromagnetic properties</b><p>HBχPT calculations of polarizabilities for spin-$\tfrac{1}{2}$ and spin-$\tfrac{3}{2}$ singly heavy baryons and heavy triplet hadrons.</p></div>
+          <div class="theme"><b>Production of exotic states</b><p>Branching fractions in $B^- \to D^- X_{0,1}(2900)$ and hidden-charm strange molecular states in $B$, $B_s$ decays.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="picker">
+  <div class="pick-btn" onclick="window.parent.postMessage({type:'click',choice:'iterate',text:'Iterate further on this style'},'*')">Iterate further</div>
+  <div class="pick-btn primary" onclick="window.parent.postMessage({type:'click',choice:'accept',text:'Accept this hybrid style'},'*')">Accept this style</div>
+</div>
+
+</body>
+</html>
