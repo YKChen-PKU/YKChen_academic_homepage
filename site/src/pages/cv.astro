@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="CV — Yan-Ke Chen">
+  <section class="pt-10 grid grid-cols-[90px_1fr] gap-6">
+    <div class="font-mono text-[10px] tracking-[0.14em] uppercase text-ink-3 pt-1">
+      <span class="block text-[11px] text-mark mb-1">§</span>CV
+    </div>
+    <div>
+      <h1 class="text-[36px] font-semibold tracking-tightest text-ink">Curriculum Vitae</h1>
+      <p class="text-[14px] text-ink-2 mt-2">
+        Summary below; the PDF is authoritative.
+      </p>
+
+      <a
+        href="/cv/CV_YKChen.pdf"
+        class="inline-block mt-5 px-5 py-3 bg-accent text-paper font-mono text-[12px] uppercase tracking-wider hover:bg-ink transition-colors"
+      >
+        ↓ Download PDF (CV_YKChen.pdf)
+      </a>
+
+      <h2 class="mt-10 text-[20px] font-medium tracking-tight">Personal Information</h2>
+      <dl class="mt-3 grid grid-cols-[200px_1fr] gap-y-1.5 text-[14px] text-ink-2">
+        <dt class="font-mono text-[11px] uppercase text-ink-3">Email</dt>
+        <dd><a class="text-accent hover:text-ink" href="mailto:chenyanke@pku.edu.cn">chenyanke@pku.edu.cn</a></dd>
+        <dt class="font-mono text-[11px] uppercase text-ink-3">Affiliation</dt>
+        <dd>Center for High Energy Physics, Peking University</dd>
+        <dt class="font-mono text-[11px] uppercase text-ink-3">INSPIRE</dt>
+        <dd><a class="text-accent hover:text-ink" href="https://inspirehep.net/authors/2182746">2182746</a></dd>
+      </dl>
+
+      <h2 class="mt-10 text-[20px] font-medium tracking-tight">Education</h2>
+      <ul class="mt-3 space-y-3 text-[14px] text-ink-2">
+        <li>
+          <strong class="text-ink">Peking University</strong> — PhD in Theoretical Physics ·
+          Sep 2020 – Jun 2025. Advisor: Prof. Shi-Lin Zhu.
+        </li>
+        <li>
+          <strong class="text-ink">Lanzhou University</strong> — BSc in Physics ·
+          Sep 2016 – Jul 2020.
+        </li>
+      </ul>
+
+      <h2 class="mt-10 text-[20px] font-medium tracking-tight">Professional Experience</h2>
+      <ul class="mt-3 space-y-3 text-[14px] text-ink-2">
+        <li>
+          <strong class="text-ink">CHEP, Peking University</strong> — Postdoctoral Researcher ·
+          Jul 2025 – present. Supervisor: Prof. Shi-Lin Zhu.
+        </li>
+      </ul>
+
+      <h2 class="mt-10 text-[20px] font-medium tracking-tight">Awards</h2>
+      <ul class="mt-3 space-y-2 text-[14px] text-ink-2 list-disc list-inside">
+        <li>President Scholarship (2024–2025)</li>
+        <li>National Scholarship (2019–2020)</li>
+        <li>Merit Student · Merit Student Pacesetter</li>
+      </ul>
+
+      <h2 class="mt-10 text-[20px] font-medium tracking-tight">Professional Service</h2>
+      <ul class="mt-3 space-y-1 text-[14px] text-ink-2 list-disc list-inside">
+        <li>Peer reviewer — Physical Review D</li>
+        <li>Peer reviewer — Chinese Physics C</li>
+        <li>Peer reviewer — European Physical Journal C</li>
+      </ul>
+
+      <h2 class="mt-10 text-[20px] font-medium tracking-tight">Skills</h2>
+      <ul class="mt-3 space-y-1 text-[14px] text-ink-2 list-disc list-inside">
+        <li>Scientific computing</li>
+        <li>Mathematica, C/C++</li>
+        <li>Linux</li>
+        <li>CUDA GPU programming</li>
+      </ul>
+
+      <p class="mt-12 text-[12px] font-mono text-ink-3">
+        For the complete publication list, see
+        <a class="text-accent hover:text-ink" href="/publications">/publications</a>.
+        For talks, see
+        <a class="text-accent hover:text-ink" href="/talks">/talks</a>.
+      </p>
+    </div>
+  </section>
+</Base>
