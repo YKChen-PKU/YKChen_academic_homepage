@@ -1,0 +1,40 @@
+[
+  {
+    "id": "2761091",
+    "metadata": {
+      "titles": [{"title": "Branching fractions of $B^-\\to D^- X_{0,1}(2900)$ and their implications"}],
+      "authors": [
+        {"full_name": "Chen, Yan-Ke", "ids": [{"schema": "INSPIRE BAI", "value": "Yan.Ke.Chen.1"}]},
+        {"full_name": "Han, Jia-Jian"},
+        {"full_name": "Lu, Qi-Fang"},
+        {"full_name": "Wang, Jin-Peng"},
+        {"full_name": "Yu, Fu-Sheng"}
+      ],
+      "arxiv_eprints": [{"value": "2009.01182", "categories": ["hep-ph"]}],
+      "publication_info": [
+        {"journal_title": "Eur. Phys. J. C", "journal_volume": "81", "page_start": "71", "year": 2021}
+      ],
+      "dois": [{"value": "10.1140/epjc/s10052-021-08857-8"}],
+      "citation_count": 21,
+      "first_author": {"full_name": "Chen, Yan-Ke"}
+    }
+  },
+  {
+    "id": "2680001",
+    "metadata": {
+      "titles": [{"title": "Tetraquark bound states in constituent quark models: Benchmark test calculations"}],
+      "authors": [
+        {"full_name": "Meng, Lu"},
+        {"full_name": "Chen, Yan-Ke", "ids": [{"schema": "INSPIRE BAI", "value": "Yan.Ke.Chen.1"}]},
+        {"full_name": "Ma, Yao"},
+        {"full_name": "Zhu, Shi-Lin"}
+      ],
+      "arxiv_eprints": [{"value": "2310.13354", "categories": ["hep-ph", "hep-lat"]}],
+      "publication_info": [
+        {"journal_title": "Phys. Rev. D", "journal_volume": "108", "page_start": "114016", "year": 2023}
+      ],
+      "dois": [{"value": "10.1103/PhysRevD.108.114016"}],
+      "citation_count": 47
+    }
+  }
+]
