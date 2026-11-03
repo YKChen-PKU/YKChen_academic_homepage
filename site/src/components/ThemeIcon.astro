@@ -1,0 +1,29 @@
+---
+interface Props { slug: string; }
+const { slug } = Astro.props;
+---
+<svg class="theme-icon" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+  {slug === 'quark_models' && <>
+    <circle cx="80" cy="80" r="57" stroke="currentColor" stroke-dasharray="2 7" />
+    <ellipse cx="80" cy="80" rx="65" ry="28" stroke="currentColor" transform="rotate(35 80 80)" />
+    <path d="m55 57 52 3-18 47-46-25z" stroke="currentColor" />
+    <circle cx="55" cy="57" r="9" fill="currentColor" /><circle cx="107" cy="60" r="7" fill="currentColor" />
+    <circle cx="89" cy="107" r="10" fill="currentColor" /><circle cx="43" cy="82" r="6" fill="currentColor" />
+  </>}
+  {slug === 'hadronic_interaction' && <>
+    <path d="M15 101c24-49 44-49 66 0s42 48 65-2M15 62c25 47 45 47 66 0s42-48 65 0" stroke="currentColor" />
+    <path d="M15 81h130" stroke="currentColor" stroke-dasharray="3 7" />
+    <circle cx="80" cy="81" r="13" fill="currentColor" /><circle cx="80" cy="81" r="27" stroke="currentColor" />
+  </>}
+  {slug === 'electromagnetic_properties' && <>
+    <circle cx="67" cy="80" r="28" stroke="currentColor" /><circle cx="67" cy="80" r="8" fill="currentColor" />
+    <path d="M98 52c22 8 22 48 0 56M111 38c37 15 37 69 0 84M26 44l-12-9M24 80H8M26 116l-12 9" stroke="currentColor" stroke-linecap="round" />
+    <path d="m48 66 37 28M48 94l37-28" stroke="currentColor" stroke-dasharray="2 5" />
+  </>}
+  {slug === 'production_and_decays' && <>
+    <circle cx="35" cy="80" r="13" fill="currentColor" />
+    <path d="M49 80h30M79 80l49-43M79 80l49 43" stroke="currentColor" />
+    <path d="M62 54c20 7 20 45 0 52M73 40c33 13 33 67 0 80" stroke="currentColor" stroke-dasharray="3 6" />
+    <circle cx="132" cy="33" r="8" fill="currentColor" /><circle cx="132" cy="127" r="8" fill="currentColor" />
+  </>}
+</svg>

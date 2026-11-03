@@ -1,0 +1,21 @@
+---
+import { refreshedLabel } from '../lib/data';
+import T from './T.astro';
+---
+<footer class="site-footer">
+  <div class="footer-main">
+    <div>
+      <p class="eyebrow"><T en="Get in touch" zh="联系方式" /></p>
+      <a class="footer-email" href="mailto:chenyanke@pku.edu.cn">chenyanke@pku.edu.cn <span aria-hidden="true">↗</span></a>
+    </div>
+    <nav class="footer-links" aria-label="External profiles">
+      <a href="https://inspirehep.net/authors/2182746" target="_blank" rel="noreferrer">INSPIRE <span>↗</span></a>
+      <a href="https://orcid.org/0000-0002-9984-163X" target="_blank" rel="noreferrer">ORCID <span>↗</span></a>
+      <a href="https://github.com/YKChen-PKU" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+    </nav>
+  </div>
+  <div class="footer-meta">
+    <span>© {new Date().getFullYear()} Yan-Ke Chen · Beijing, China</span>
+    <span><T en="INSPIRE data refreshed" zh="INSPIRE 数据更新于" /> {refreshedLabel}</span>
+  </div>
+</footer>

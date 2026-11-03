@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PaperCard from '../components/PaperCard.astro';
+import ThemeIcon from '../components/ThemeIcon.astro';
+import T from '../components/T.astro';
+import { renderInlineMath } from '../lib/math';
+import { papersForTheme, researchThemes } from '../lib/research';
+---
+<Base title="Research — Yan-Ke Chen" description="Research by Yan-Ke Chen on quark models, hadronic interactions, electromagnetic properties of hadrons, and exotic-state production and decays.">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow"><T en="Research · From quarks to hadrons" zh="研究方向 · 从夸克到强子" /></p>
+      <h1 class="page-title"><span class="i18n-en">Structure, interaction,<br />and <em>response.</em></span><span class="i18n-zh">结构、相互作用<br />与<em>响应。</em></span></h1>
+      <p class="page-intro"><T en="I study how quarks and hadrons organize into bound states and resonances, and how their internal structure becomes visible through production, decay, and electromagnetic probes." zh="我研究夸克与强子如何组织成束缚态和共振态，以及它们的内部结构如何通过产生、衰变和电磁探针显现。" /></p>
+    </div>
+    <div class="page-header-aside"><strong>04</strong><T en="research directions · one connected program" zh="研究方向 · 相互关联的研究计划" /></div>
+  </header>
+  <nav class="research-index" aria-label="Research themes">
+    {researchThemes.map((theme) => <a href={`#${theme.slug}`}>{theme.number} · <T en={theme.shortTitle} zh={theme.shortTitleZh} /></a>)}
+  </nav>
+  {researchThemes.map((theme) => {
+    const papers = papersForTheme(theme.slug);
+    return <section id={theme.slug} class="research-theme">
+      <div class="research-theme-intro reveal">
+        <span class="research-theme-number">/{theme.number}</span>
+        <h2><T en={theme.title} zh={theme.titleZh} /></h2>
+        <ThemeIcon slug={theme.slug} />
+        <ul class="method-list">{theme.methods.map((method, index) => <li><T en={method} zh={theme.methodsZh[index]} /></li>)}</ul>
+      </div>
+      <div class="research-theme-copy">
+        <p><span class="i18n-en" set:html={renderInlineMath(theme.introTex)} /><span class="i18n-zh" set:html={renderInlineMath(theme.introZh)} /></p>
+        <div class="theme-publications">
+          <h3><T en={`Selected publications · ${papers.length}`} zh={`相关论文 · ${papers.length}`} /></h3>
+          <div class="paper-list">{papers.map((paper) => <PaperCard paper={paper} />)}</div>
+        </div>
+      </div>
+    </section>;
+  })}
+</Base>

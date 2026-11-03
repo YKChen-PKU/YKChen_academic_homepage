@@ -1,0 +1,44 @@
+---
+import { bundle } from '../../lib/data';
+import { completeYears, ticksFor } from '../../lib/charts';
+
+const data = completeYears(bundle.metrics.papers_per_year, { first: 0, middle: 0, last: 0, sole: 0 });
+const totals = data.map(({ value }) => Object.values(value).reduce((sum, count) => sum + count, 0));
+const max = Math.max(...totals, 1);
+const ticks = ticksFor(max);
+const width = 600;
+const height = 310;
+const top = 18;
+const bottom = 48;
+const left = 38;
+const right = 14;
+const chartHeight = height - top - bottom;
+const step = (width - left - right) / data.length;
+const barWidth = Math.min(56, step * .58);
+const y = (value: number) => top + chartHeight - (value / max) * chartHeight;
+---
+<div class="chart-card reveal">
+  <div class="chart-heading"><h2><span class="i18n-en">Papers per year</span><span class="i18n-zh">每年论文数</span></h2><span><span class="i18n-en">stacked by author position</span><span class="i18n-zh">按作者位置堆叠</span></span></div>
+  <svg class="chart-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Stacked bar chart of papers published each year">
+    {ticks.map((tick) => (
+      <g><line class="grid-line" x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} /><text class="axis-label" x={left - 10} y={y(tick) + 3} text-anchor="end">{tick}</text></g>
+    ))}
+    {data.map(({ year, value }, index) => {
+      const first = value.first + value.sole;
+      const middle = value.middle;
+      const other = value.last;
+      const x = left + step * index + (step - barWidth) / 2;
+      const firstHeight = top + chartHeight - y(first);
+      const middleHeight = y(first) - y(first + middle);
+      const otherHeight = y(first + middle) - y(first + middle + other);
+      return <g>
+        <title>{year}: {totals[index]} papers</title>
+        <rect class="bar-first" x={x} y={y(first)} width={barWidth} height={firstHeight} rx="2" />
+        <rect class="bar-middle" x={x} y={y(first + middle)} width={barWidth} height={middleHeight} rx="2" />
+        <rect class="bar-other" x={x} y={y(first + middle + other)} width={barWidth} height={otherHeight} />
+        <text x={x + barWidth / 2} y={height - 17} text-anchor="middle">{year}</text>
+      </g>;
+    })}
+  </svg>
+  <div class="chart-legend"><span class="legend-key"><i class="legend-swatch"></i><span class="i18n-en">First / sole</span><span class="i18n-zh">第一／独立作者</span></span><span class="legend-key"><i class="legend-swatch legend-swatch--green"></i><span class="i18n-en">Middle</span><span class="i18n-zh">中间作者</span></span><span class="legend-key"><i class="legend-swatch legend-swatch--pale"></i><span class="i18n-en">Last</span><span class="i18n-zh">末位作者</span></span></div>
+</div>

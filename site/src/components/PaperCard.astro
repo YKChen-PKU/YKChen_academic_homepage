@@ -1,0 +1,33 @@
+---
+import type { Paper } from '../lib/data';
+import { displayName, venueLabel } from '../lib/data';
+import { escapeHtml, renderInlineMath } from '../lib/math';
+import T from './T.astro';
+
+interface Props {
+  paper: Paper;
+  showYear?: boolean;
+}
+
+const { paper, showYear = true } = Astro.props;
+const authors = paper.authors.map((author) => {
+  const name = escapeHtml(displayName(author.name));
+  return author.is_yk ? `<strong>${name}</strong>` : name;
+}).join(', ');
+---
+<article class="paper-card">
+  <div class="paper-year">{showYear ? paper.year : ''}</div>
+  <div class="paper-body">
+    <h3 set:html={renderInlineMath(paper.title)} />
+    <p class="paper-authors" set:html={authors} />
+    <div class="paper-links">
+      {paper.arxiv_id && <a href={`https://arxiv.org/abs/${paper.arxiv_id}`} target="_blank" rel="noreferrer">arXiv:{paper.arxiv_id} <span>↗</span></a>}
+      {paper.doi && <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">DOI <span>↗</span></a>}
+      <a href={`https://inspirehep.net/literature/${paper.inspire_id}`} target="_blank" rel="noreferrer">INSPIRE <span>↗</span></a>
+    </div>
+  </div>
+  <div class="paper-meta">
+    <span class="venue">{venueLabel(paper)}</span>
+    <span class="citation-pill">{paper.citation_count} <T en={paper.citation_count === 1 ? 'citation' : 'citations'} zh="次引用" /></span>
+  </div>
+</article>

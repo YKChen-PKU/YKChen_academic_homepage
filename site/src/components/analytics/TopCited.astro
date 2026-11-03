@@ -1,0 +1,17 @@
+---
+import { bundle } from '../../lib/data';
+import { renderInlineMath } from '../../lib/math';
+const papers = bundle.metrics.top_cited.slice(0, 8);
+const max = Math.max(...papers.map((paper) => paper.citation_count), 1);
+---
+<div class="chart-card chart-card--wide reveal">
+  <div class="chart-heading"><h2><span class="i18n-en">Most-cited papers</span><span class="i18n-zh">最高引用论文</span></h2><span><span class="i18n-en">citation counts from INSPIRE-HEP</span><span class="i18n-zh">引用数据来自 INSPIRE-HEP</span></span></div>
+  <div class="top-cited-list">
+    {papers.map((paper, index) => <div class="top-cited-item">
+      <span class="top-cited-rank">{String(index + 1).padStart(2, '0')}</span>
+      <a class="top-cited-title" href={`https://inspirehep.net/literature/${paper.inspire_id}`} target="_blank" rel="noreferrer" set:html={renderInlineMath(paper.title)} />
+      <strong class="top-cited-value">{paper.citation_count}</strong>
+      <div class="top-cited-track"><div class="top-cited-fill" style={`width:${paper.citation_count / max * 100}%`}></div></div>
+    </div>)}
+  </div>
+</div>

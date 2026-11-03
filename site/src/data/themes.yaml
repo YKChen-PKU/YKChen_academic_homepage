@@ -1,0 +1,24 @@
+# Curated arxiv-id → theme mapping. Update as new papers come out.
+quark_models:
+  - "2608.20892"  # The excited baryon spectrum from a unified quark model
+  - "2310.14597"
+  - "2508.11161"
+  - "2401.14899"
+  - "2310.13354"
+  - "2409.03373"
+  - "2406.17824"
+  - "2309.17068"
+  - "2211.09021"
+  - "2408.00503"
+hadronic_interaction:
+  - "2308.12424"
+  - "2602.12010"
+  - "2404.16575"  # Uncovering the mystery of X(3872) with coupled-channel dynamics
+electromagnetic_properties:
+  - "2608.15263"  # Spin-dependent polarizabilities of heavy vector mesons
+  - "2412.02297"
+  - "2506.18800"
+  - "2602.05502"
+production_and_decays:
+  - "2009.01182"
+  - "2302.01696"

@@ -1,0 +1,43 @@
+oral:
+  - event: 2026 Joint Workshop on Experimental and Theoretical Heavy-Flavor Physics
+    event_zh: 2026年重味物理实验与理论联合研讨会
+    url: https://indico.ihep.ac.cn/event/29576/
+    title: "The excited baryon spectrum from a unified quark model"
+    location: "Guyuan, China"
+    date: "Aug 2026"
+  - event: 11th XYZ Symposium
+    event_zh: 第十一届 XYZ 研讨会
+    url: https://indico.ihep.ac.cn/event/28777/
+    title: "Decoding exotic hadrons in few-body calculations"
+    location: "Guizhou, China"
+    date: "Jul 2026"
+  - event: 2026 Frontier Physics Working Month
+    event_zh: 2026年前沿物理工作月
+    url: https://indico.ihep.ac.cn/event/29231/
+    title: "Decoding exotic hadrons in few-body calculations"
+    location: "Beijing, Qingdao, Hefei, Guangzhou, and Lanzhou, China"
+    date: "Jun 2026"
+  - event: Workshop on Frontiers of Multiquark Physics
+    event_zh: 多夸克态物理前沿研讨会
+    url: https://indico.ihep.ac.cn/event/28427/
+    title: "$DD^*\\bar{K}^*$ three-body molecular state"
+    location: "Beijing, China"
+    date: "Jan 2026"
+  - event: 9th XYZ Symposium
+    event_zh: 第九届 XYZ 研讨会
+    url: https://indico.ihep.ac.cn/event/21747/
+    title: "$Qs\\bar{n}\\bar{n}$ bound states and resonances in quark potential model"
+    location: "Xi'an, China"
+    date: "May 2024"
+  - event: 7th Symposium on Symmetries and the emergence of Structure in QCD
+    event_zh: 第七届强相互作用量子色动力学对称性及其物质结构学术研讨会
+    url: https://indico.ihep.ac.cn/event/19031/
+    title: "Doubly-heavy tetraquark bound states in quark potential models"
+    location: "Rizhao, China"
+    date: "Jul 2023"
+poster:
+  - event: 11th Five-University Alliance Doctoral Academic Forum
+    event_zh: 第十一届五校联盟博士生学术论坛
+    title: "A unified description of the tetraquark states in the quark potential model"
+    location: "Hefei, China"
+    date: "Dec 2024"

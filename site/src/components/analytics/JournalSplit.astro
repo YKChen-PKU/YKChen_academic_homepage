@@ -1,0 +1,14 @@
+---
+import { bundle } from '../../lib/data';
+const journals = Object.entries(bundle.metrics.journal_split).sort(([, a], [, b]) => b - a);
+const max = Math.max(...journals.map(([, count]) => count), 1);
+---
+<div class="chart-card reveal">
+  <div class="chart-heading"><h2><span class="i18n-en">Journal / venue split</span><span class="i18n-zh">期刊／发表渠道分布</span></h2><span>{bundle.papers.length} <span class="i18n-en">papers</span><span class="i18n-zh">篇论文</span></span></div>
+  <div class="journal-bars">
+    {journals.map(([journal, count]) => <div class="journal-row">
+      <div class="journal-bar-label"><span>{journal}</span><span>{count} · {Math.round(count / bundle.papers.length * 100)}%</span></div>
+      <div class="journal-bar-track"><div class="journal-bar-fill" style={`width:${count / max * 100}%`}></div></div>
+    </div>)}
+  </div>
+</div>

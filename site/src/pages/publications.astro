@@ -1,0 +1,206 @@
+---
+import Base from '../layouts/Base.astro';
+import PaperCard from '../components/PaperCard.astro';
+import T from '../components/T.astro';
+import { bundle, citationTotal, displayName, papersByYear } from '../lib/data';
+import { researchThemes } from '../lib/research';
+
+const years = [...new Set(bundle.papers.map((paper) => paper.year))].sort((a, b) => b - a);
+const hasUntagged = bundle.papers.some((paper) => !paper.theme_slug);
+const positions = [
+  { value: 'all', en: 'Any position', zh: '全部位置' },
+  { value: 'first', en: 'first author', zh: '第一作者' },
+  { value: 'middle', en: 'middle author', zh: '中间作者' },
+  { value: 'last', en: 'last author', zh: '末位作者' },
+];
+---
+<Base title="Publications — Yan-Ke Chen" description="Complete publication list of Yan-Ke Chen, with citation data from INSPIRE-HEP.">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow"><T en="Publications · INSPIRE-HEP" zh="论文发表 · INSPIRE-HEP" /></p>
+      <h1 class="page-title"><span class="i18n-en">The paper <em>trail.</em></span><span class="i18n-zh">论文<em>档案。</em></span></h1>
+      <p class="page-intro"><T en="A complete, searchable record of published papers and preprints. Citation counts and bibliographic records are synchronized with INSPIRE-HEP." zh="完整、可检索的论文与预印本记录。引用次数和文献信息与 INSPIRE-HEP 同步。" /></p>
+    </div>
+    <div class="page-header-aside"><strong>{bundle.papers.length}</strong><T en="papers" zh="篇论文" /><br />{citationTotal} <T en="citations" zh="次引用" /></div>
+  </header>
+
+  <section class="publication-controls" aria-label="Filter publications">
+    <div class="search-row">
+      <label class="search-box">
+        <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"><T en="Search publications" zh="搜索论文" /></span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" /><path d="m13 13 4 4" /></svg>
+        <input id="paper-search" type="search" placeholder="Search title, author, or arXiv ID…" data-placeholder-en="Search title, author, or arXiv ID…" data-placeholder-zh="搜索题目、作者或 arXiv 编号…" autocomplete="off" />
+      </label>
+      <div class="sort-control">
+        <span id="sort-label" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"><T en="Sort publications" zh="论文排序" /></span>
+        <button id="paper-sort" class="sort-trigger" type="button" aria-labelledby="sort-label sort-current" aria-haspopup="listbox" aria-expanded="false" aria-controls="paper-sort-menu">
+          <span id="sort-current" data-en="Newest first" data-zh="最新发表优先">Newest first</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
+        </button>
+        <div id="paper-sort-menu" class="sort-menu" role="listbox" aria-labelledby="sort-label" hidden>
+          <button class="sort-option" type="button" role="option" data-sort-value="year" data-en="Newest first" data-zh="最新发表优先" aria-selected="true">Newest first</button>
+          <button class="sort-option" type="button" role="option" data-sort-value="citations" data-en="Most cited" data-zh="引用最多优先" aria-selected="false">Most cited</button>
+          <button class="sort-option" type="button" role="option" data-sort-value="title" data-en="Title A–Z" data-zh="按题目字母排序" aria-selected="false">Title A–Z</button>
+        </div>
+      </div>
+    </div>
+    <div class="filter-rows">
+      <div class="filter-row"><span class="filter-label"><T en="Year" zh="年份" /></span><div class="filter-options">
+        <button class="filter-chip" data-filter-group="year" data-filter-value="all" data-active="true"><T en="All years" zh="全部年份" /></button>
+        {years.map((year) => <button class="filter-chip" data-filter-group="year" data-filter-value={String(year)} data-active="false">{year}</button>)}
+      </div></div>
+      <div class="filter-row"><span class="filter-label"><T en="Theme" zh="方向" /></span><div class="filter-options">
+        <button class="filter-chip" data-filter-group="theme" data-filter-value="all" data-active="true"><T en="All themes" zh="全部方向" /></button>
+        {researchThemes.map((theme) => <button class="filter-chip" data-filter-group="theme" data-filter-value={theme.slug} data-active="false"><T en={theme.shortTitle} zh={theme.shortTitleZh} /></button>)}
+        {hasUntagged && <button class="filter-chip" data-filter-group="theme" data-filter-value="untagged" data-active="false"><T en="Untagged" zh="未归类" /></button>}
+      </div></div>
+      <div class="filter-row"><span class="filter-label"><T en="Position" zh="作者位置" /></span><div class="filter-options">
+        {positions.map((position) => <button class="filter-chip" data-filter-group="position" data-filter-value={position.value} data-active={position.value === 'all' ? 'true' : 'false'}><T en={position.en} zh={position.zh} /></button>)}
+      </div></div>
+    </div>
+  </section>
+
+  <div class="results-line"><span id="results-count" aria-live="polite">Showing {bundle.papers.length} publications</span><button class="reset-filter" id="reset-filters" type="button"><T en="Reset filters" zh="重置筛选" /> ↺</button></div>
+  <div id="publication-list" class="paper-list">
+    {papersByYear.map((paper) => <div class="publication-item" data-year={paper.year} data-theme={paper.theme_slug ?? 'untagged'} data-position={paper.author_position} data-citations={paper.citation_count} data-title={paper.title.replace(/\$/g, '')} data-search={`${paper.title} ${paper.authors.map((author) => displayName(author.name)).join(' ')} ${paper.arxiv_id}`.toLowerCase()}>
+      <PaperCard paper={paper} />
+    </div>)}
+  </div>
+  <div id="empty-state" class="empty-state"><p><T en="No publications match these filters." zh="没有符合这些条件的论文。" /></p><button class="reset-filter" id="empty-reset" type="button"><T en="Clear all filters" zh="清除全部筛选" /></button></div>
+</Base>
+
+<script>
+  const state = { query: '', year: 'all', theme: 'all', position: 'all', sort: 'year' };
+  const list = document.querySelector<HTMLElement>('#publication-list')!;
+  const items = Array.from(list.querySelectorAll<HTMLElement>('.publication-item'));
+  const search = document.querySelector<HTMLInputElement>('#paper-search')!;
+  const sortButton = document.querySelector<HTMLButtonElement>('#paper-sort')!;
+  const sortMenu = document.querySelector<HTMLElement>('#paper-sort-menu')!;
+  const sortCurrent = document.querySelector<HTMLElement>('#sort-current')!;
+  const sortOptions = Array.from(sortMenu.querySelectorAll<HTMLButtonElement>('.sort-option'));
+  const count = document.querySelector<HTMLElement>('#results-count')!;
+  const empty = document.querySelector<HTMLElement>('#empty-state')!;
+  const params = new URLSearchParams(window.location.search);
+  state.query = params.get('q') ?? '';
+  state.year = params.get('year') ?? 'all';
+  state.theme = params.get('theme') ?? 'all';
+  state.position = params.get('position') ?? 'all';
+  state.sort = params.get('sort') ?? 'year';
+  state.sort = ['year', 'citations', 'title'].includes(state.sort) ? state.sort : 'year';
+  search.value = state.query;
+
+  function setSortOpen(open: boolean, focusSelected = false): void {
+    sortButton.setAttribute('aria-expanded', String(open));
+    sortMenu.hidden = !open;
+    if (open && focusSelected) {
+      const selected = sortOptions.find((option) => option.getAttribute('aria-selected') === 'true') ?? sortOptions[0];
+      selected.focus();
+    }
+  }
+
+  function setSort(value: string): void {
+    const selected = sortOptions.find((option) => option.dataset.sortValue === value) ?? sortOptions[0];
+    state.sort = selected.dataset.sortValue!;
+    sortCurrent.dataset.en = selected.dataset.en!;
+    sortCurrent.dataset.zh = selected.dataset.zh!;
+    sortCurrent.textContent = document.documentElement.dataset.lang === 'zh' ? selected.dataset.zh! : selected.dataset.en!;
+    sortOptions.forEach((option) => option.setAttribute('aria-selected', String(option === selected)));
+  }
+
+  function applyFilters(): void {
+    let visible = 0;
+    items.forEach((item) => {
+      const matches = (!state.query || item.dataset.search!.includes(state.query.toLowerCase()))
+        && (state.year === 'all' || item.dataset.year === state.year)
+        && (state.theme === 'all' || item.dataset.theme === state.theme)
+        && (state.position === 'all' || item.dataset.position === state.position);
+      item.hidden = !matches;
+      if (matches) visible += 1;
+    });
+    const sorted = [...items].sort((a, b) => {
+      if (state.sort === 'citations') return Number(b.dataset.citations) - Number(a.dataset.citations) || Number(b.dataset.year) - Number(a.dataset.year);
+      if (state.sort === 'title') return a.dataset.title!.localeCompare(b.dataset.title!);
+      return Number(b.dataset.year) - Number(a.dataset.year);
+    });
+    sorted.forEach((item) => list.appendChild(item));
+    document.querySelectorAll<HTMLButtonElement>('.filter-chip').forEach((button) => {
+      const group = button.dataset.filterGroup as 'year' | 'theme' | 'position';
+      button.dataset.active = String(state[group] === button.dataset.filterValue);
+    });
+    const chinese = document.documentElement.dataset.lang === 'zh';
+    count.textContent = chinese ? `显示 ${visible} / ${items.length} 篇论文` : `Showing ${visible} of ${items.length} publications`;
+    empty.classList.toggle('visible', visible === 0);
+    const next = new URLSearchParams();
+    if (state.query) next.set('q', state.query);
+    for (const key of ['year', 'theme', 'position'] as const) if (state[key] !== 'all') next.set(key, state[key]);
+    if (state.sort !== 'year') next.set('sort', state.sort);
+    const query = next.toString();
+    history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
+  }
+
+  function reset(): void {
+    state.query = '';
+    state.year = 'all';
+    state.theme = 'all';
+    state.position = 'all';
+    setSort('year');
+    search.value = '';
+    applyFilters();
+  }
+
+  search.addEventListener('input', () => { state.query = search.value.trim(); applyFilters(); });
+  sortButton.addEventListener('click', () => setSortOpen(sortMenu.hidden));
+  sortButton.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setSortOpen(false);
+      return;
+    }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      setSortOpen(true, true);
+    }
+  });
+  sortOptions.forEach((option) => {
+    option.addEventListener('click', () => {
+      setSort(option.dataset.sortValue!);
+      applyFilters();
+      setSortOpen(false);
+      sortButton.focus();
+    });
+  });
+  sortMenu.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setSortOpen(false);
+      sortButton.focus();
+      return;
+    }
+    if (event.key === 'Tab') {
+      setSortOpen(false);
+      return;
+    }
+    const current = sortOptions.indexOf(document.activeElement as HTMLButtonElement);
+    let next = current;
+    if (event.key === 'ArrowDown') next = (current + 1) % sortOptions.length;
+    else if (event.key === 'ArrowUp') next = (current - 1 + sortOptions.length) % sortOptions.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = sortOptions.length - 1;
+    else return;
+    event.preventDefault();
+    sortOptions[next].focus();
+  });
+  document.addEventListener('click', (event) => {
+    if (!document.querySelector('.sort-control')?.contains(event.target as Node)) setSortOpen(false);
+  });
+  window.addEventListener('languagechange', applyFilters);
+  document.querySelectorAll<HTMLButtonElement>('.filter-chip').forEach((button) => {
+    button.addEventListener('click', () => {
+      const group = button.dataset.filterGroup as 'year' | 'theme' | 'position';
+      state[group] = button.dataset.filterValue!;
+      applyFilters();
+    });
+  });
+  document.querySelector('#reset-filters')?.addEventListener('click', reset);
+  document.querySelector('#empty-reset')?.addEventListener('click', reset);
+  setSort(state.sort);
+  applyFilters();
+</script>

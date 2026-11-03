@@ -1,0 +1,32 @@
+---
+import { bundle } from '../../lib/data';
+const counts = bundle.metrics.author_position_total;
+const first = counts.first + counts.sole;
+const middle = counts.middle;
+const last = counts.last;
+const total = first + middle + last;
+const circumference = 2 * Math.PI * 50;
+const segments = [
+  { label: 'First / sole', labelZh: '第一／独立作者', value: first, color: 'var(--ink)' },
+  { label: 'Middle', labelZh: '中间作者', value: middle, color: 'var(--chart-secondary)' },
+  { label: 'Last', labelZh: '末位作者', value: last, color: 'var(--chart-other)' },
+];
+let offset = 0;
+const arcs = segments.map((segment) => {
+  const length = total ? segment.value / total * circumference : 0;
+  const arc = { ...segment, length, offset };
+  offset += length;
+  return arc;
+});
+---
+<div class="chart-card reveal">
+  <div class="chart-heading"><h2><span class="i18n-en">Author position</span><span class="i18n-zh">作者位置</span></h2><span>n = {total}</span></div>
+  <div class="position-layout">
+    <svg class="position-donut" viewBox="0 0 140 140" role="img" aria-label={`First or sole author on ${first} papers, middle author on ${middle}, last author on ${last}`}>
+      <circle cx="70" cy="70" r="50" fill="none" stroke="var(--chart-other)" stroke-width="18" />
+      {arcs.map((arc) => <circle cx="70" cy="70" r="50" fill="none" stroke={arc.color} stroke-width="18" stroke-dasharray={`${arc.length} ${circumference - arc.length}`} stroke-dashoffset={-arc.offset} transform="rotate(-90 70 70)" />)}
+      <text x="70" y="75" text-anchor="middle">{total ? Math.round(first / total * 100) : 0}%</text>
+    </svg>
+    <div class="position-stats">{segments.map((segment) => <div class="position-stat"><span class="legend-key"><i class="legend-swatch" style={`background:${segment.color}`}></i><span class="i18n-en">{segment.label}</span><span class="i18n-zh">{segment.labelZh}</span></span><strong>{segment.value}</strong></div>)}</div>
+  </div>
+</div>

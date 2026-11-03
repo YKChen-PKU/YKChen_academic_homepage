@@ -1,0 +1,27 @@
+---
+interface Props {
+  values: number[];
+  labels: string[];
+}
+const { values, labels } = Astro.props;
+const width = 720;
+const height = 210;
+const pad = 22;
+const max = Math.max(...values, 1);
+const points = values.map((value, index) => ({
+  x: pad + index * ((width - pad * 2) / Math.max(values.length - 1, 1)),
+  y: height - pad - (value / max) * (height - pad * 2),
+  value,
+  label: labels[index],
+}));
+const line = points.map((point, index) => `${index ? 'L' : 'M'}${point.x.toFixed(1)},${point.y.toFixed(1)}`).join(' ');
+const area = `${line} L${points.at(-1)?.x ?? pad},${height - pad} L${points[0]?.x ?? pad},${height - pad} Z`;
+---
+<svg class="sparkline" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Cumulative citations by publication year">
+  <path d={area} fill="currentColor" opacity=".08" />
+  <path d={line} stroke="currentColor" stroke-width="3" fill="none" />
+  {points.map((point) => <g>
+    <circle cx={point.x} cy={point.y} r="5" fill="currentColor"><title>{point.label}: {point.value} cumulative citations</title></circle>
+    <text x={point.x} y={height - 2} text-anchor="middle">{point.label}</text>
+  </g>)}
+</svg>

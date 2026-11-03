@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import T from '../components/T.astro';
+import { awards, experiences } from '../lib/experience';
+---
+<Base title="Curriculum Vitae — Yan-Ke Chen" description="Curriculum vitae of Yan-Ke Chen, postdoctoral researcher at the Center for High Energy Physics, Peking University.">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow"><T en="Curriculum vitae · Academic profile" zh="个人简历 · 学术档案" /></p>
+      <h1 class="page-title">Yan-Ke Chen<br /><span class="cv-name-cn">陈炎柯</span></h1>
+      <p class="page-intro"><T en="Postdoctoral researcher at the Center for High Energy Physics, Peking University, working on theoretical hadron physics." zh="北京大学高能物理研究中心博士后，从事理论强子物理研究。" /></p>
+    </div>
+  </header>
+  <div class="cv-layout">
+    <aside class="cv-sidebar">
+      <img class="cv-photo" src="/photo.jpg" alt="Yan-Ke Chen" width="748" height="935" />
+      <div class="cv-contact">
+        <a href="mailto:chenyanke@pku.edu.cn">chenyanke@pku.edu.cn</a>
+        <a href="https://inspirehep.net/authors/2182746" target="_blank" rel="noreferrer">INSPIRE · 2182746 ↗</a>
+        <a href="https://orcid.org/0000-0002-9984-163X" target="_blank" rel="noreferrer">ORCID · 0000-0002-9984-163X ↗</a>
+        <span>Beijing, China</span>
+      </div>
+    </aside>
+    <div class="cv-content">
+      <section class="cv-section reveal">
+        <h2><T en="01 · Appointments" zh="01 · 工作经历" /></h2>
+        {experiences.filter((item) => item.kind === 'work').map((item) => <div class="cv-entry"><span class="cv-entry-date"><T en={item.dateEn} zh={item.dateZh} /></span><div><h3><T en={item.titleEn} zh={item.titleZh} /></h3><p><T en={item.organizationEn} zh={item.organizationZh} /><br /><T en={item.detailEn} zh={item.detailZh} /></p></div></div>)}
+      </section>
+      <section class="cv-section reveal">
+        <h2><T en="02 · Education" zh="02 · 教育经历" /></h2>
+        {experiences.filter((item) => item.kind === 'education').map((item) => <div class="cv-entry"><span class="cv-entry-date"><T en={item.dateEn} zh={item.dateZh} /></span><div><h3><T en={item.titleEn} zh={item.titleZh} /></h3><p><T en={item.organizationEn} zh={item.organizationZh} /><br /><T en={item.detailEn} zh={item.detailZh} /></p></div></div>)}
+      </section>
+      <section class="cv-section reveal">
+        <h2><T en="03 · Awards" zh="03 · 奖励与奖学金" /></h2>
+        <ul class="cv-list">{awards.map((award) => <li><T en={award.en} zh={award.zh} />{award.dateEn && <> · <T en={award.dateEn} zh={award.dateZh} /></>}</li>)}</ul>
+      </section>
+      <section class="cv-section reveal">
+        <h2><T en="04 · Professional service" zh="04 · 学术服务" /></h2>
+        <ul class="cv-list"><li>Peer reviewer — Physical Review D</li><li>Peer reviewer — Physics Letters B</li><li>Peer reviewer — Chinese Physics C</li><li>Peer reviewer — European Physical Journal C</li></ul>
+      </section>
+      <section class="cv-section reveal">
+        <h2><T en="05 · Technical skills" zh="05 · 专业技能" /></h2>
+        <ul class="cv-list"><li>Scientific computing</li><li>Mathematica, C/C++</li><li>Linux</li><li>CUDA GPU programming</li></ul>
+      </section>
+    </div>
+  </div>
+</Base>

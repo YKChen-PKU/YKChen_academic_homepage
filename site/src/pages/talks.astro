@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import yaml from 'js-yaml';
+import { renderInlineMath } from '../lib/math';
+import talksFile from '../data/talks.yaml?raw';
+
+interface Talk {
+  event: string;
+  event_zh: string;
+  url?: string;
+  title: string;
+  location: string;
+  date: string;
+}
+const talks = yaml.load(talksFile) as { oral: Talk[]; poster: Talk[] };
+const groups = [
+  { label: 'Oral presentations', labelZh: '口头报告', typeZh: '口头', key: 'oral' as const },
+  { label: 'Poster presentations', labelZh: '海报报告', typeZh: '海报', key: 'poster' as const },
+];
+---
+<Base title="Talks — Yan-Ke Chen" description="Conference talks and poster presentations by Yan-Ke Chen.">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow"><span class="i18n-en">Talks · Conferences & forums</span><span class="i18n-zh">学术报告 · 会议与论坛</span></p>
+      <h1 class="page-title"><span class="i18n-en">Ideas, out <em>loud.</em></span><span class="i18n-zh">学术<em>交流。</em></span></h1>
+      <p class="page-intro"><span class="i18n-en">Selected oral and poster presentations on tetraquarks, hadronic molecules, and few-body methods.</span><span class="i18n-zh">关于四夸克态、强子分子态与少体方法的口头和海报报告。</span></p>
+    </div>
+    <div class="page-header-aside"><strong>{talks.oral.length + talks.poster.length}</strong><span class="i18n-en">presentations</span><span class="i18n-zh">次报告</span><br />{talks.oral.length} <span class="i18n-en">oral</span><span class="i18n-zh">口头</span> · {talks.poster.length} <span class="i18n-en">poster</span><span class="i18n-zh">海报</span></div>
+  </header>
+  {groups.map((group) => <section class="section" style="padding-top:50px">
+    <p class="eyebrow" style="margin-bottom:24px;color:var(--accent-strong)"><span class="i18n-en">{group.label}</span><span class="i18n-zh">{group.labelZh}</span></p>
+    <div class="talks-list">
+      {talks[group.key].map((talk) => <article class="talk-item reveal">
+        <time class="talk-date">{talk.date}</time>
+        <div><span class="talk-type"><span class="i18n-en">{group.key}</span><span class="i18n-zh">{group.typeZh}</span></span><h2 class="talk-event">{talk.url ? <a class="talk-event-link" href={talk.url} target="_blank" rel="noreferrer"><span><span class="i18n-en">{talk.event}</span><span class="i18n-zh">{talk.event_zh}</span></span><span class="talk-link-arrow" aria-hidden="true">↗</span></a> : <span><span class="i18n-en">{talk.event}</span><span class="i18n-zh">{talk.event_zh}</span></span>}</h2><p class="talk-title" set:html={renderInlineMath(talk.title)} /></div>
+        <div class="talk-location">{talk.location}</div>
+      </article>)}
+    </div>
+  </section>)}
+</Base>

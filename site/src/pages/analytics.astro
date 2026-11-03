@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PapersPerYear from '../components/analytics/PapersPerYear.astro';
+import JournalSplit from '../components/analytics/JournalSplit.astro';
+import CitationsCumulative from '../components/analytics/CitationsCumulative.astro';
+import HIndexCurve from '../components/analytics/HIndexCurve.astro';
+import CoauthorNetwork from '../components/analytics/CoauthorNetwork.astro';
+import AuthorPosition from '../components/analytics/AuthorPosition.astro';
+import TopCited from '../components/analytics/TopCited.astro';
+import T from '../components/T.astro';
+import { bundle, citationTotal, hIndex, refreshedLabel } from '../lib/data';
+const methodZh = bundle.metrics.citations_per_year_method === 'exact' ? '精确' : '近似';
+---
+<Base title="Analytics — Yan-Ke Chen" description="Publication, citation, collaboration, and authorship analytics for Yan-Ke Chen, based on INSPIRE-HEP data.">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow"><T en="Analytics · Open research data" zh="数据分析 · 开放科研数据" /></p>
+      <h1 class="page-title"><span class="i18n-en">The work,<br /><em>quantified.</em></span><span class="i18n-zh">科研工作<br /><em>数据视图。</em></span></h1>
+      <p class="page-intro"><T en="Seven views of publication activity, citation impact, and collaboration. All values are derived from the public INSPIRE-HEP record." zh="从七个视角展示论文发表、引用影响和合作网络。所有数值均来自公开的 INSPIRE-HEP 记录。" /></p>
+    </div>
+  </header>
+  <div class="analytics-summary">
+    <div class="summary-item"><strong>{bundle.papers.length}</strong><span><T en="Publications" zh="论文" /></span></div>
+    <div class="summary-item"><strong>{citationTotal}</strong><span><T en="Citations" zh="引用" /></span></div>
+    <div class="summary-item"><strong>{hIndex}</strong><span>h-index</span></div>
+    <div class="summary-item"><strong>{bundle.metrics.coauthor_graph.nodes.length}</strong><span><T en="Co-authors" zh="合作者" /></span></div>
+  </div>
+  <div class="analytics-grid">
+    <PapersPerYear />
+    <JournalSplit />
+    <CitationsCumulative />
+    <HIndexCurve />
+    <CoauthorNetwork />
+    <AuthorPosition />
+    <TopCited />
+  </div>
+  <p class="analytics-note"><span class="i18n-en">Source: <a href="https://inspirehep.net/authors/2182746" target="_blank" rel="noreferrer">INSPIRE-HEP author 2182746</a> · Last refreshed {refreshedLabel}. Per-year citation values use the {bundle.metrics.citations_per_year_method} method and are attributed to publication year, not the year each citation was received.</span><span class="i18n-zh">数据来源：<a href="https://inspirehep.net/authors/2182746" target="_blank" rel="noreferrer">INSPIRE-HEP 作者 2182746</a> · 最近更新 {refreshedLabel}。年度引用值采用{methodZh}方法，归入论文发表年份，而非每条引用实际产生的年份。</span></p>
+</Base>

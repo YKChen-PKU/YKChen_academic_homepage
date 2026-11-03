@@ -1,0 +1,40 @@
+---
+import { bundle, displayName } from '../../lib/data';
+const nodes = [...bundle.metrics.coauthor_graph.nodes].sort((a, b) => b.papers_with_yk - a.papers_with_yk);
+const width = 600;
+const height = 390;
+const center = { x: width / 2, y: height / 2 - 5 };
+const positions = new Map<string, { x: number; y: number }>();
+nodes.forEach((node, index) => {
+  const inner = index < 6;
+  const ringIndex = inner ? index : index - 6;
+  const ringCount = inner ? Math.min(6, nodes.length) : nodes.length - 6;
+  const angle = -Math.PI / 2 + ringIndex / ringCount * Math.PI * 2 + (inner ? 0 : .18);
+  const radius = inner ? 112 : 164;
+  positions.set(node.name, {
+    x: center.x + Math.cos(angle) * radius * 1.35,
+    y: center.y + Math.sin(angle) * radius * .9,
+  });
+});
+const edges = bundle.metrics.coauthor_graph.edges.flatMap((edge) => {
+  const source = positions.get(edge.source);
+  const target = positions.get(edge.target);
+  return source && target ? [{ ...edge, source, target }] : [];
+});
+---
+<div class="chart-card reveal">
+  <div class="chart-heading"><h2><span class="i18n-en">Co-author network</span><span class="i18n-zh">合作者网络</span></h2><span><span class="i18n-en">{nodes.length} collaborators · node size = shared papers</span><span class="i18n-zh">{nodes.length} 位合作者 · 节点大小表示共同论文数</span></span></div>
+  <div class="network-wrap">
+    <svg class="network-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Network of Yan-Ke Chen's co-authors">
+      {nodes.map((node) => { const point = positions.get(node.name)!; return <line class="edge" x1={center.x} y1={center.y} x2={point.x} y2={point.y} stroke-width=".6" opacity=".35" />; })}
+      {edges.map((edge) => <line class="edge" x1={edge.source.x} y1={edge.source.y} x2={edge.target.x} y2={edge.target.y} stroke-width={Math.min(1 + edge.weight * .25, 4)} opacity=".65" />)}
+      <circle class="node-main" cx={center.x} cy={center.y} r="23" /><text x={center.x} y={center.y + 38} text-anchor="middle" font-weight="600">Y.-K. Chen</text>
+      {nodes.map((node) => {
+        const point = positions.get(node.name)!;
+        const radius = 5 + Math.sqrt(node.papers_with_yk) * 2.5;
+        const name = displayName(node.name).split(' ').at(-1);
+        return <g><circle class="node" cx={point.x} cy={point.y} r={radius}><title>{displayName(node.name)} · {node.papers_with_yk} shared papers</title></circle><text x={point.x} y={point.y + radius + 13} text-anchor="middle">{name}</text></g>;
+      })}
+    </svg>
+  </div>
+</div>

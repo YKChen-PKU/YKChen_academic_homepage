@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import PaperCard from '../components/PaperCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ThemeIcon from '../components/ThemeIcon.astro';
+import Sparkline from '../components/Sparkline.astro';
+import T from '../components/T.astro';
+import { bundle, citationTotal, hIndex } from '../lib/data';
+import { renderInlineMath } from '../lib/math';
+import { researchThemes } from '../lib/research';
+import { experiences } from '../lib/experience';
+
+const recent = [...bundle.papers].sort((a, b) => b.year - a.year).slice(0, 5);
+const citations = Object.entries(bundle.metrics.cumulative_citations).sort(([a], [b]) => Number(a) - Number(b));
+---
+<Base title="Yan-Ke Chen — Hadron Physics at PKU">
+  <section class="home-hero" aria-labelledby="hero-title">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow hero-kicker"><span class="status-dot"></span><T en="Postdoctoral researcher · PKU CHEP" zh="北京大学高能物理研究中心博士后" /></p>
+        <h1 id="hero-title" class="hero-title"><span>Yan-Ke Chen</span><span class="hero-chinese">陈炎柯</span></h1>
+        <p class="hero-description">
+          <span class="i18n-en">I explore the strong interaction through <strong>hadron spectroscopy, exotic states, and low-energy hadron interactions</strong> — connecting quark-level pictures with observable hadrons.</span>
+          <span class="i18n-zh">我通过<strong>强子谱学、奇特强子态和低能强子相互作用</strong>探索强相互作用，连接夸克层次的图像与可观测强子。</span>
+        </p>
+        <div class="hero-actions">
+          <a class="button button--lime" href="/research/"><T en="Explore my research" zh="了解我的研究" /> <span aria-hidden="true">↗</span></a>
+          <a class="button button--ghost-light" href="/publications/"><T en="View publications" zh="查看论文" /></a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img class="hero-photo" src="/photo.jpg" alt="Portrait of Yan-Ke Chen" width="748" height="935" fetchpriority="high" />
+      </div>
+    </div>
+    <div class="metrics-strip" aria-label="Publication summary">
+      <div class="metric"><strong class="metric-value">{bundle.papers.length}</strong><span class="metric-label"><T en="Publications" zh="论文" /></span></div>
+      <div class="metric"><strong class="metric-value">{citationTotal}</strong><span class="metric-label"><T en="Citations" zh="引用" /></span></div>
+      <div class="metric"><strong class="metric-value">{hIndex}</strong><span class="metric-label">h-index</span></div>
+      <div class="metric"><strong class="metric-value">{bundle.metrics.coauthor_graph.nodes.length}</strong><span class="metric-label"><T en="Collaborators" zh="合作者" /></span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="research-heading">
+    <SectionHeading id="research-heading" eyebrow="01 · Research map" eyebrowZh="01 · 研究地图" title="Four ways to look inside hadrons." titleZh="理解强子内部结构的四条路径。" href="/research/" linkLabel="All research themes" linkLabelZh="全部研究方向" />
+    <div class="theme-grid">
+      {researchThemes.map((theme) => (
+        <a class="theme-card reveal" href={`/research/#${theme.slug}`}>
+          <span class="theme-number">/{theme.number}</span>
+          <ThemeIcon slug={theme.slug} />
+          <h3><T en={theme.title} zh={theme.titleZh} /></h3>
+          <p><span class="i18n-en" set:html={renderInlineMath(theme.summaryTex)} /><span class="i18n-zh" set:html={renderInlineMath(theme.summaryZh)} /></p>
+          <span class="card-link"><T en="View research & papers" zh="查看研究与论文" /> <span aria-hidden="true">↗</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="recent-heading">
+    <SectionHeading id="recent-heading" eyebrow="02 · Latest work" eyebrowZh="02 · 最新工作" title="Recent publications." titleZh="近期论文。" href="/publications/" linkLabel={`All ${bundle.papers.length} publications`} linkLabelZh={`全部 ${bundle.papers.length} 篇论文`} />
+    <div class="paper-list reveal">
+      {recent.map((paper) => <PaperCard paper={paper} />)}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="experience-heading">
+    <SectionHeading id="experience-heading" eyebrow="03 · Education & career" eyebrowZh="03 · 教育与工作" title="Education and experience." titleZh="教育与工作经历。" href="/cv/" linkLabel="View full profile" linkLabelZh="查看完整履历" />
+    <div class="home-experience-grid reveal">
+      {experiences.map((item) => <article class="home-experience">
+        <p class="home-experience-date"><T en={item.dateEn} zh={item.dateZh} /></p>
+        <h3><T en={item.titleEn} zh={item.titleZh} /></h3>
+        <p class="home-experience-org"><T en={item.organizationEn} zh={item.organizationZh} /></p>
+        <p class="home-experience-detail"><T en={item.detailEn} zh={item.detailZh} /></p>
+      </article>)}
+    </div>
+  </section>
+
+  <section class="data-feature reveal" aria-labelledby="data-heading">
+    <div>
+      <p class="eyebrow"><T en="04 · Research in numbers" zh="04 · 研究数据" /></p>
+      <h2 id="data-heading"><T en="A living record of the work." zh="科研工作的持续记录。" /></h2>
+      <p><T en="Publication and citation data are collected from INSPIRE-HEP and refreshed automatically every day." zh="论文与引用数据来自 INSPIRE-HEP，并每天自动更新。" /></p>
+      <a class="text-link" href="/analytics/"><T en="Explore the analytics" zh="查看数据分析" /> <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="data-chart">
+      <div class="data-stat"><strong>{citationTotal}</strong><span><T en={`total citations · across ${bundle.papers.length} papers`} zh={`总引用 · 共 ${bundle.papers.length} 篇论文`} /></span></div>
+      <Sparkline values={citations.map(([, value]) => value)} labels={citations.map(([year]) => year)} />
+    </div>
+  </section>
+</Base>

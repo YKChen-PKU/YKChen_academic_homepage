@@ -1,0 +1,38 @@
+---
+import { bundle } from '../../lib/data';
+import { completeYears, ticksFor } from '../../lib/charts';
+
+const yearlyRecord = Object.fromEntries(Object.keys(bundle.metrics.cumulative_citations).map((year) => [year, bundle.metrics.citations_per_year[year] ?? 0]));
+const yearly = completeYears(yearlyRecord, 0);
+const cumulative = Object.entries(bundle.metrics.cumulative_citations)
+  .sort(([a], [b]) => Number(a) - Number(b))
+  .map(([year, value]) => ({ year: Number(year), value, index: yearly.findIndex((item) => item.year === Number(year)) }));
+const max = Math.max(...cumulative.map(({ value }) => value), 1);
+const ticks = ticksFor(max);
+const width = 600;
+const height = 310;
+const top = 18;
+const bottom = 48;
+const left = 43;
+const right = 18;
+const chartHeight = height - top - bottom;
+const step = (width - left - right) / yearly.length;
+const x = (index: number) => left + step * (index + .5);
+const y = (value: number) => top + chartHeight - value / max * chartHeight;
+const line = cumulative.map(({ value, index }, position) => `${position ? 'L' : 'M'}${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(' ');
+---
+<div class="chart-card reveal">
+  <div class="chart-heading"><h2><span class="i18n-en">Citation growth</span><span class="i18n-zh">引用增长</span></h2><span><span class="i18n-en">{bundle.metrics.citations_per_year_method} · by publication year</span><span class="i18n-zh">{bundle.metrics.citations_per_year_method === 'exact' ? '精确' : '近似'} · 按论文发表年份</span></span></div>
+  <svg class="chart-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Yearly and cumulative citations attributed to publication year">
+    {ticks.map((tick) => (
+      <g><line class="grid-line" x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} /><text class="axis-label" x={left - 10} y={y(tick) + 3} text-anchor="end">{tick}</text></g>
+    ))}
+    {yearly.map(({ year, value }, index) => <g>
+      <rect x={x(index) - 24} y={y(value)} width="48" height={top + chartHeight - y(value)} fill="var(--chart-other)" rx="2"><title>{year}: {value} citations</title></rect>
+      <text x={x(index)} y={height - 17} text-anchor="middle">{year}</text>
+    </g>)}
+    <path class="line-primary" d={line} />
+    {cumulative.map(({ year, value, index }) => <circle class="point" cx={x(index)} cy={y(value)} r="4"><title>{year}: {value} cumulative citations</title></circle>)}
+  </svg>
+  <div class="chart-legend"><span class="legend-key"><i class="legend-swatch"></i><span class="i18n-en">Cumulative</span><span class="i18n-zh">累计引用</span></span><span class="legend-key"><i class="legend-swatch legend-swatch--pale"></i><span class="i18n-en">Per publication year</span><span class="i18n-zh">按论文发表年份</span></span></div>
+</div>
