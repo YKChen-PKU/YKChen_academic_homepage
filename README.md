@@ -73,7 +73,6 @@ The production output is written to `site/dist/`.
 - **arXiv ID → research theme mapping:** `site/src/data/themes.yaml`
 - **Talks:** `site/src/data/talks.yaml`
 - **CV page:** `site/src/pages/cv.astro`
-- **Authoritative CV PDF:** `site/public/cv/CV_YKChen.pdf`
 - **Portrait:** `site/public/photo.jpg`
 - **Colors, typography, and layout:** `site/src/styles/global.css`
 

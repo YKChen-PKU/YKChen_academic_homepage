@@ -25,7 +25,7 @@
 - 论文、作者、引用和指标以 INSPIRE 快照为事实来源，不在前端硬编码副本。
 - 研究介绍集中在 `site/src/lib/research.ts`，报告在 `site/src/data/talks.yaml`，双语履历与奖项在 `site/src/lib/experience.ts`，CV 页面在 `site/src/pages/cv.astro`。
 - 涉及物理内容的增删、主题归类、措辞变化或数据口径变化，先与用户确认，不自行补充物理判断。
-- CV PDF 是完整履历的权威版本；网页摘要与 PDF 冲突时先报告，不自行猜测。
+- CV 内容更新以用户提供的最新简历来源为准；网站不提供 CV PDF 文件或下载入口。
 - 保留现有外部链接、可访问性标签、移动端布局与 `prefers-reduced-motion` 支持。
 
 ## 常用命令
