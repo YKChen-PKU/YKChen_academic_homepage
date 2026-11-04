@@ -11,6 +11,7 @@ quark_models:
   - "2211.09021"
   - "2408.00503"
 hadronic_interaction:
+  - "2611.01768"  # Heavy-meson molecules with dynamical pions
   - "2308.12424"
   - "2602.12010"
   - "2404.16575"  # Uncovering the mystery of X(3872) with coupled-channel dynamics

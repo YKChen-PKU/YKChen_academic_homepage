@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-03T10:34:48.884623Z",
+  "fetched_at": "2026-11-04T09:14:55.067714Z",
   "author": {
     "recid": "2182746",
     "name": "Yan-Ke Chen",
@@ -46,7 +46,7 @@
         "year": 2025
       },
       "doi": "10.1103/929g-cv15",
-      "citation_count": 12,
+      "citation_count": 13,
       "arxiv_categories": [
         "hep-ph",
         "hep-ex",
@@ -142,101 +142,6 @@
       "theme_slug": "quark_models"
     },
     {
-      "arxiv_id": "2302.01696",
-      "inspire_id": "2629503",
-      "title": "Hunting for the hidden-charm molecular states with strange quark in $B$ and $B_s$ decays",
-      "authors": [
-        {
-          "name": "Wu, Qi",
-          "is_yk": false,
-          "inspire_id": "Qi.Wu.1"
-        },
-        {
-          "name": "Chen, Yan-Ke",
-          "is_yk": true,
-          "inspire_id": "Dian.Yong.Chen.1"
-        },
-        {
-          "name": "Li, Gang",
-          "is_yk": false,
-          "inspire_id": "Gang.Li.2"
-        },
-        {
-          "name": "Liu, Shi-Dong",
-          "is_yk": false,
-          "inspire_id": "Shidong.Liu.1"
-        },
-        {
-          "name": "Chen, Dian-Yong",
-          "is_yk": false,
-          "inspire_id": "Yan.Ke.Chen.1"
-        }
-      ],
-      "year": 2023,
-      "journal_ref": {
-        "name": "Phys.Rev.D",
-        "volume": "107",
-        "page": null,
-        "year": 2023
-      },
-      "doi": "10.1103/PhysRevD.107.054044",
-      "citation_count": 14,
-      "arxiv_categories": [
-        "hep-ph"
-      ],
-      "author_position": "middle",
-      "theme_slug": "production_and_decays"
-    },
-    {
-      "arxiv_id": "2408.00503",
-      "inspire_id": "2813742",
-      "title": "Fully strange tetraquark resonant states as the cousins of $X(6900)$",
-      "authors": [
-        {
-          "name": "Ma, Yao",
-          "is_yk": false,
-          "inspire_id": "Yao.Ma.2"
-        },
-        {
-          "name": "Wu, Wei-Lin",
-          "is_yk": false,
-          "inspire_id": "W.L.Wu.1"
-        },
-        {
-          "name": "Meng, Lu",
-          "is_yk": false,
-          "inspire_id": "Lu.Meng.1"
-        },
-        {
-          "name": "Chen, Yan-Ke",
-          "is_yk": true,
-          "inspire_id": "Yan.Ke.Chen.1"
-        },
-        {
-          "name": "Zhu, Shi-Lin",
-          "is_yk": false,
-          "inspire_id": "Shi.Lin.Zhu.1"
-        }
-      ],
-      "year": 2024,
-      "journal_ref": {
-        "name": "Phys.Rev.D",
-        "volume": "110",
-        "page": null,
-        "year": 2024
-      },
-      "doi": "10.1103/PhysRevD.110.074026",
-      "citation_count": 20,
-      "arxiv_categories": [
-        "hep-ph",
-        "hep-ex",
-        "hep-lat",
-        "nucl-th"
-      ],
-      "author_position": "middle",
-      "theme_slug": "quark_models"
-    },
-    {
       "arxiv_id": "2412.02297",
       "inspire_id": "2855355",
       "title": "Electromagnetic polarizabilities of the spin-$\\frac{1}{2}$ singly heavy baryons in heavy baryon chiral perturbation theory",
@@ -316,6 +221,101 @@
       ],
       "author_position": "middle",
       "theme_slug": "electromagnetic_properties"
+    },
+    {
+      "arxiv_id": "2408.00503",
+      "inspire_id": "2813742",
+      "title": "Fully strange tetraquark resonant states as the cousins of $X(6900)$",
+      "authors": [
+        {
+          "name": "Ma, Yao",
+          "is_yk": false,
+          "inspire_id": "Yao.Ma.2"
+        },
+        {
+          "name": "Wu, Wei-Lin",
+          "is_yk": false,
+          "inspire_id": "W.L.Wu.1"
+        },
+        {
+          "name": "Meng, Lu",
+          "is_yk": false,
+          "inspire_id": "Lu.Meng.1"
+        },
+        {
+          "name": "Chen, Yan-Ke",
+          "is_yk": true,
+          "inspire_id": "Yan.Ke.Chen.1"
+        },
+        {
+          "name": "Zhu, Shi-Lin",
+          "is_yk": false,
+          "inspire_id": "Shi.Lin.Zhu.1"
+        }
+      ],
+      "year": 2024,
+      "journal_ref": {
+        "name": "Phys.Rev.D",
+        "volume": "110",
+        "page": null,
+        "year": 2024
+      },
+      "doi": "10.1103/PhysRevD.110.074026",
+      "citation_count": 21,
+      "arxiv_categories": [
+        "hep-ph",
+        "hep-ex",
+        "hep-lat",
+        "nucl-th"
+      ],
+      "author_position": "middle",
+      "theme_slug": "quark_models"
+    },
+    {
+      "arxiv_id": "2302.01696",
+      "inspire_id": "2629503",
+      "title": "Hunting for the hidden-charm molecular states with strange quark in $B$ and $B_s$ decays",
+      "authors": [
+        {
+          "name": "Wu, Qi",
+          "is_yk": false,
+          "inspire_id": "Qi.Wu.1"
+        },
+        {
+          "name": "Chen, Yan-Ke",
+          "is_yk": true,
+          "inspire_id": "Dian.Yong.Chen.1"
+        },
+        {
+          "name": "Li, Gang",
+          "is_yk": false,
+          "inspire_id": "Gang.Li.2"
+        },
+        {
+          "name": "Liu, Shi-Dong",
+          "is_yk": false,
+          "inspire_id": "Shidong.Liu.1"
+        },
+        {
+          "name": "Chen, Dian-Yong",
+          "is_yk": false,
+          "inspire_id": "Yan.Ke.Chen.1"
+        }
+      ],
+      "year": 2023,
+      "journal_ref": {
+        "name": "Phys.Rev.D",
+        "volume": "107",
+        "page": null,
+        "year": 2023
+      },
+      "doi": "10.1103/PhysRevD.107.054044",
+      "citation_count": 15,
+      "arxiv_categories": [
+        "hep-ph"
+      ],
+      "author_position": "middle",
+      "theme_slug": "production_and_decays"
     },
     {
       "arxiv_id": "2211.09021",
@@ -439,7 +439,7 @@
         "year": 2024
       },
       "doi": "10.1103/PhysRevD.109.054034",
-      "citation_count": 50,
+      "citation_count": 51,
       "arxiv_categories": [
         "hep-ph",
         "hep-ex",
@@ -450,9 +450,9 @@
       "theme_slug": "quark_models"
     },
     {
-      "arxiv_id": "2308.12424",
-      "inspire_id": "2690597",
-      "title": "Virtual states in the coupled-channel problems with an improved complex scaling method",
+      "arxiv_id": "2611.01768",
+      "inspire_id": "3222258",
+      "title": "Heavy-meson molecules with dynamical pions",
       "authors": [
         {
           "name": "Chen, Yan-Ke",
@@ -460,14 +460,14 @@
           "inspire_id": "Yan.Ke.Chen.1"
         },
         {
+          "name": "Wen, Liang-Zhen",
+          "is_yk": false,
+          "inspire_id": "Liang.Zhen.Wen.1"
+        },
+        {
           "name": "Meng, Lu",
           "is_yk": false,
           "inspire_id": "Lu.Meng.1"
-        },
-        {
-          "name": "Lin, Zi-Yang",
-          "is_yk": false,
-          "inspire_id": "Z.Y.Lin.4"
         },
         {
           "name": "Zhu, Shi-Lin",
@@ -475,21 +475,14 @@
           "inspire_id": "Shi.Lin.Zhu.1"
         }
       ],
-      "year": 2024,
-      "journal_ref": {
-        "name": "Phys.Rev.D",
-        "volume": "109",
-        "page": null,
-        "year": 2024
-      },
-      "doi": "10.1103/PhysRevD.109.034006",
-      "citation_count": 21,
+      "year": 2026,
+      "journal_ref": null,
+      "doi": null,
+      "citation_count": 0,
       "arxiv_categories": [
         "hep-ph",
-        "hep-lat",
-        "nucl-th",
-        "physics.atom-ph",
-        "quant-ph"
+        "hep-ex",
+        "hep-lat"
       ],
       "author_position": "first",
       "theme_slug": "hadronic_interaction"
@@ -541,6 +534,51 @@
       ],
       "author_position": "middle",
       "theme_slug": "quark_models"
+    },
+    {
+      "arxiv_id": "2308.12424",
+      "inspire_id": "2690597",
+      "title": "Virtual states in the coupled-channel problems with an improved complex scaling method",
+      "authors": [
+        {
+          "name": "Chen, Yan-Ke",
+          "is_yk": true,
+          "inspire_id": "Yan.Ke.Chen.1"
+        },
+        {
+          "name": "Meng, Lu",
+          "is_yk": false,
+          "inspire_id": "Lu.Meng.1"
+        },
+        {
+          "name": "Lin, Zi-Yang",
+          "is_yk": false,
+          "inspire_id": "Z.Y.Lin.4"
+        },
+        {
+          "name": "Zhu, Shi-Lin",
+          "is_yk": false,
+          "inspire_id": "Shi.Lin.Zhu.1"
+        }
+      ],
+      "year": 2024,
+      "journal_ref": {
+        "name": "Phys.Rev.D",
+        "volume": "109",
+        "page": null,
+        "year": 2024
+      },
+      "doi": "10.1103/PhysRevD.109.034006",
+      "citation_count": 22,
+      "arxiv_categories": [
+        "hep-ph",
+        "hep-lat",
+        "nucl-th",
+        "physics.atom-ph",
+        "quant-ph"
+      ],
+      "author_position": "first",
+      "theme_slug": "hadronic_interaction"
     },
     {
       "arxiv_id": "2602.05502",
@@ -631,6 +669,97 @@
       "theme_slug": "quark_models"
     },
     {
+      "arxiv_id": "2602.12010",
+      "inspire_id": "3118951",
+      "title": "Existence of the $DD^*\\bar{K}^*$ and $BB^*K^*$ three-body molecular states",
+      "authors": [
+        {
+          "name": "Chen, Yan-Ke",
+          "is_yk": true,
+          "inspire_id": "Yan.Ke.Chen.1"
+        },
+        {
+          "name": "Meng, Lu",
+          "is_yk": false,
+          "inspire_id": "Lu.Meng.1"
+        },
+        {
+          "name": "Wang, Jun-Zhang",
+          "is_yk": false,
+          "inspire_id": "Jun.Zhang.Wang.1"
+        },
+        {
+          "name": "Zhu, Shi-Lin",
+          "is_yk": false,
+          "inspire_id": "Shi.Lin.Zhu.1"
+        }
+      ],
+      "year": 2026,
+      "journal_ref": {
+        "name": "Phys.Rev.D",
+        "volume": "114",
+        "page": null,
+        "year": 2026
+      },
+      "doi": "10.1103/xxsq-d5sm",
+      "citation_count": 3,
+      "arxiv_categories": [
+        "hep-ph",
+        "hep-ex"
+      ],
+      "author_position": "first",
+      "theme_slug": "hadronic_interaction"
+    },
+    {
+      "arxiv_id": "2409.03373",
+      "inspire_id": "2825240",
+      "title": "Doubly heavy tetraquark bound and resonant states",
+      "authors": [
+        {
+          "name": "Wu, Wei-Lin",
+          "is_yk": false,
+          "inspire_id": "W.L.Wu.1"
+        },
+        {
+          "name": "Ma, Yao",
+          "is_yk": false,
+          "inspire_id": "Yao.Ma.2"
+        },
+        {
+          "name": "Chen, Yan-Ke",
+          "is_yk": true,
+          "inspire_id": "Yan.Ke.Chen.1"
+        },
+        {
+          "name": "Meng, Lu",
+          "is_yk": false,
+          "inspire_id": "Lu.Meng.1"
+        },
+        {
+          "name": "Zhu, Shi-Lin",
+          "is_yk": false,
+          "inspire_id": "Shi.Lin.Zhu.1"
+        }
+      ],
+      "year": 2024,
+      "journal_ref": {
+        "name": "Phys.Rev.D",
+        "volume": "110",
+        "page": null,
+        "year": 2024
+      },
+      "doi": "10.1103/PhysRevD.110.094041",
+      "citation_count": 30,
+      "arxiv_categories": [
+        "hep-ph",
+        "hep-ex",
+        "hep-lat",
+        "nucl-th"
+      ],
+      "author_position": "middle",
+      "theme_slug": "quark_models"
+    },
+    {
       "arxiv_id": "2310.14597",
       "inspire_id": "2713353",
       "title": "The unified description of the $Qs \\bar q \\bar q$ molecular bound states, molecular resonances and compact tetraquark states in the quark potential model",
@@ -664,7 +793,7 @@
         "year": 2024
       },
       "doi": "10.1103/PhysRevD.109.014010",
-      "citation_count": 27,
+      "citation_count": 28,
       "arxiv_categories": [
         "hep-ph",
         "hep-ex",
@@ -722,48 +851,6 @@
       "theme_slug": "quark_models"
     },
     {
-      "arxiv_id": "2602.12010",
-      "inspire_id": "3118951",
-      "title": "Existence of the $DD^*\\bar{K}^*$ and $BB^*K^*$ three-body molecular states",
-      "authors": [
-        {
-          "name": "Chen, Yan-Ke",
-          "is_yk": true,
-          "inspire_id": "Yan.Ke.Chen.1"
-        },
-        {
-          "name": "Meng, Lu",
-          "is_yk": false,
-          "inspire_id": "Lu.Meng.1"
-        },
-        {
-          "name": "Wang, Jun-Zhang",
-          "is_yk": false,
-          "inspire_id": "Jun.Zhang.Wang.1"
-        },
-        {
-          "name": "Zhu, Shi-Lin",
-          "is_yk": false,
-          "inspire_id": "Shi.Lin.Zhu.1"
-        }
-      ],
-      "year": 2026,
-      "journal_ref": {
-        "name": "Phys.Rev.D",
-        "volume": "114",
-        "page": null,
-        "year": 2026
-      },
-      "doi": "10.1103/xxsq-d5sm",
-      "citation_count": 2,
-      "arxiv_categories": [
-        "hep-ph",
-        "hep-ex"
-      ],
-      "author_position": "first",
-      "theme_slug": "hadronic_interaction"
-    },
-    {
       "arxiv_id": "2009.01182",
       "inspire_id": "1814635",
       "title": "Branching fractions of $B^-\\to D^-X_{0,1}(2900)$ and their implications",
@@ -808,55 +895,6 @@
       ],
       "author_position": "first",
       "theme_slug": "production_and_decays"
-    },
-    {
-      "arxiv_id": "2409.03373",
-      "inspire_id": "2825240",
-      "title": "Doubly heavy tetraquark bound and resonant states",
-      "authors": [
-        {
-          "name": "Wu, Wei-Lin",
-          "is_yk": false,
-          "inspire_id": "W.L.Wu.1"
-        },
-        {
-          "name": "Ma, Yao",
-          "is_yk": false,
-          "inspire_id": "Yao.Ma.2"
-        },
-        {
-          "name": "Chen, Yan-Ke",
-          "is_yk": true,
-          "inspire_id": "Yan.Ke.Chen.1"
-        },
-        {
-          "name": "Meng, Lu",
-          "is_yk": false,
-          "inspire_id": "Lu.Meng.1"
-        },
-        {
-          "name": "Zhu, Shi-Lin",
-          "is_yk": false,
-          "inspire_id": "Shi.Lin.Zhu.1"
-        }
-      ],
-      "year": 2024,
-      "journal_ref": {
-        "name": "Phys.Rev.D",
-        "volume": "110",
-        "page": null,
-        "year": 2024
-      },
-      "doi": "10.1103/PhysRevD.110.094041",
-      "citation_count": 29,
-      "arxiv_categories": [
-        "hep-ph",
-        "hep-ex",
-        "hep-lat",
-        "nucl-th"
-      ],
-      "author_position": "middle",
-      "theme_slug": "quark_models"
     }
   ],
   "metrics": {
@@ -868,20 +906,20 @@
         "sole": 0
       },
       "2026": {
-        "first": 2,
+        "first": 3,
         "middle": 2,
-        "last": 0,
-        "sole": 0
-      },
-      "2023": {
-        "first": 0,
-        "middle": 3,
         "last": 0,
         "sole": 0
       },
       "2024": {
         "first": 2,
         "middle": 5,
+        "last": 0,
+        "sole": 0
+      },
+      "2023": {
+        "first": 0,
+        "middle": 3,
         "last": 0,
         "sole": 0
       },
@@ -893,19 +931,19 @@
       }
     },
     "citations_per_year": {
-      "2025": 27,
-      "2026": 6,
-      "2023": 91,
-      "2024": 200,
+      "2025": 28,
+      "2026": 7,
+      "2024": 205,
+      "2023": 92,
       "2021": 49
     },
     "citations_per_year_method": "approximate",
     "cumulative_citations": {
       "2021": 49,
-      "2023": 140,
-      "2024": 340,
-      "2025": 367,
-      "2026": 373
+      "2023": 141,
+      "2024": 346,
+      "2025": 374,
+      "2026": 381
     },
     "h_index_curve": {
       "2021": 1,
@@ -916,7 +954,7 @@
       "2026": 12
     },
     "author_position_total": {
-      "first": 6,
+      "first": 7,
       "middle": 13,
       "last": 0,
       "sole": 0
@@ -932,7 +970,7 @@
         "arxiv_id": "2401.14899",
         "inspire_id": "2751826",
         "title": "Benchmark calculations of fully heavy compact and molecular tetraquark states",
-        "citation_count": 50
+        "citation_count": 51
       },
       {
         "arxiv_id": "2009.01182",
@@ -950,13 +988,13 @@
         "arxiv_id": "2409.03373",
         "inspire_id": "2825240",
         "title": "Doubly heavy tetraquark bound and resonant states",
-        "citation_count": 29
+        "citation_count": 30
       },
       {
         "arxiv_id": "2310.14597",
         "inspire_id": "2713353",
         "title": "The unified description of the $Qs \\bar q \\bar q$ molecular bound states, molecular resonances and compact tetraquark states in the quark potential model",
-        "citation_count": 27
+        "citation_count": 28
       },
       {
         "arxiv_id": "2211.09021",
@@ -968,25 +1006,25 @@
         "arxiv_id": "2308.12424",
         "inspire_id": "2690597",
         "title": "Virtual states in the coupled-channel problems with an improved complex scaling method",
-        "citation_count": 21
+        "citation_count": 22
       }
     ],
     "journal_split": {
       "Phys.Rev.D": 14,
       "Eur.Phys.J.C": 2,
-      "arXiv only": 2,
+      "arXiv only": 3,
       "J.Subatomic Part.Cosmol.": 1
     },
     "coauthor_graph": {
       "nodes": [
         {
           "name": "Zhu, Shi-Lin",
-          "papers_with_yk": 17,
+          "papers_with_yk": 18,
           "inspire_id": "Shi.Lin.Zhu.1"
         },
         {
           "name": "Meng, Lu",
-          "papers_with_yk": 15,
+          "papers_with_yk": 16,
           "inspire_id": "Lu.Meng.1"
         },
         {
@@ -1001,7 +1039,7 @@
         },
         {
           "name": "Wen, Liang-Zhen",
-          "papers_with_yk": 5,
+          "papers_with_yk": 6,
           "inspire_id": "Liang.Zhen.Wen.1"
         },
         {
@@ -1089,17 +1127,17 @@
         {
           "source": "Meng, Lu",
           "target": "Zhu, Shi-Lin",
-          "weight": 15
+          "weight": 16
         },
         {
           "source": "Meng, Lu",
           "target": "Wen, Liang-Zhen",
-          "weight": 3
+          "weight": 4
         },
         {
           "source": "Wen, Liang-Zhen",
           "target": "Zhu, Shi-Lin",
-          "weight": 5
+          "weight": 6
         },
         {
           "source": "Wen, Liang-Zhen",
@@ -1113,6 +1151,31 @@
         },
         {
           "source": "Wu, Wei-Lin",
+          "target": "Zhu, Shi-Lin",
+          "weight": 7
+        },
+        {
+          "source": "Dang, Hao",
+          "target": "Wen, Liang-Zhen",
+          "weight": 2
+        },
+        {
+          "source": "Dang, Hao",
+          "target": "Zhu, Shi-Lin",
+          "weight": 2
+        },
+        {
+          "source": "Ma, Yao",
+          "target": "Wu, Wei-Lin",
+          "weight": 4
+        },
+        {
+          "source": "Ma, Yao",
+          "target": "Meng, Lu",
+          "weight": 7
+        },
+        {
+          "source": "Ma, Yao",
           "target": "Zhu, Shi-Lin",
           "weight": 7
         },
@@ -1145,31 +1208,6 @@
           "source": "Chen, Dian-Yong",
           "target": "Liu, Shi-Dong",
           "weight": 1
-        },
-        {
-          "source": "Ma, Yao",
-          "target": "Wu, Wei-Lin",
-          "weight": 4
-        },
-        {
-          "source": "Ma, Yao",
-          "target": "Meng, Lu",
-          "weight": 7
-        },
-        {
-          "source": "Ma, Yao",
-          "target": "Zhu, Shi-Lin",
-          "weight": 7
-        },
-        {
-          "source": "Dang, Hao",
-          "target": "Wen, Liang-Zhen",
-          "weight": 2
-        },
-        {
-          "source": "Dang, Hao",
-          "target": "Zhu, Shi-Lin",
-          "weight": 2
         },
         {
           "source": "Han, Jia-Jie",
@@ -1217,6 +1255,11 @@
               "children": [
                 {
                   "name": "Uncovering the mystery of $X(3872)$ with the cou",
+                  "value": 1,
+                  "children": null
+                },
+                {
+                  "name": "Heavy-meson molecules with dynamical pions",
                   "value": 1,
                   "children": null
                 },
@@ -1310,17 +1353,17 @@
                   "children": null
                 },
                 {
+                  "name": "Doubly heavy tetraquark bound and resonant state",
+                  "value": 1,
+                  "children": null
+                },
+                {
                   "name": "The unified description of the $Qs \\bar q \\bar q",
                   "value": 1,
                   "children": null
                 },
                 {
                   "name": "Tetraquark states in the quark model",
-                  "value": 1,
-                  "children": null
-                },
-                {
-                  "name": "Doubly heavy tetraquark bound and resonant state",
                   "value": 1,
                   "children": null
                 }
@@ -1367,6 +1410,7 @@
       "2408.00503"
     ],
     "hadronic_interaction": [
+      "2611.01768",
       "2308.12424",
       "2602.12010",
       "2404.16575"
