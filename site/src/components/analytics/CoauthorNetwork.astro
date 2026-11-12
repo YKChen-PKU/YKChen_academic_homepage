@@ -1,5 +1,13 @@
 ---
 import { bundle, displayName } from '../../lib/data';
+
+function abbreviatedName(name: string): string {
+  const [surname, ...givenParts] = displayName(name).split(' ');
+  if (givenParts.length === 0) return surname;
+  const initials = givenParts.join(' ').split(/[\s-]+/).filter(Boolean).map((part) => `${part[0]}.`).join('-');
+  return `${initials} ${surname}`;
+}
+
 const nodes = [...bundle.metrics.coauthor_graph.nodes].sort((a, b) => b.papers_with_yk - a.papers_with_yk);
 const width = 600;
 const height = 390;
@@ -32,7 +40,7 @@ const edges = bundle.metrics.coauthor_graph.edges.flatMap((edge) => {
       {nodes.map((node) => {
         const point = positions.get(node.name)!;
         const radius = 5 + Math.sqrt(node.papers_with_yk) * 2.5;
-        const name = displayName(node.name).split(' ').at(-1);
+        const name = abbreviatedName(node.name);
         return <g><circle class="node" cx={point.x} cy={point.y} r={radius}><title>{displayName(node.name)} · {node.papers_with_yk} shared papers</title></circle><text x={point.x} y={point.y + radius + 13} text-anchor="middle">{name}</text></g>;
       })}
     </svg>

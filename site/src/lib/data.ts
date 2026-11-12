@@ -77,7 +77,7 @@ export interface InspireBundle {
 }
 
 export const bundle = bundleJson as unknown as InspireBundle;
-export const papersByYear = [...bundle.papers].sort((a, b) => b.year - a.year || b.citation_count - a.citation_count);
+export const papersMostRecent = [...bundle.papers];
 export const citationTotal = bundle.papers.reduce((sum, paper) => sum + paper.citation_count, 0);
 export const hIndex = Math.max(...Object.values(bundle.metrics.h_index_curve), 0);
 export const refreshedLabel = new Date(bundle.fetched_at).toLocaleDateString('en-US', {

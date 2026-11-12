@@ -71,6 +71,7 @@ class InspireClient:
                 '/literature',
                 params={
                     'q': f'authors.recid:{recid}',
+                    'sort': 'mostrecent',
                     'size': page_size,
                     'page': page,
                     'fields': ','.join([

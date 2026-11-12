@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PaperCard from '../components/PaperCard.astro';
 import T from '../components/T.astro';
-import { bundle, citationTotal, displayName, papersByYear } from '../lib/data';
+import { bundle, citationTotal, displayName, papersMostRecent } from '../lib/data';
 import { researchThemes } from '../lib/research';
 
 const years = [...new Set(bundle.papers.map((paper) => paper.year))].sort((a, b) => b - a);
@@ -14,31 +14,32 @@ const positions = [
   { value: 'last', en: 'last author', zh: '末位作者' },
 ];
 ---
-<Base title="Publications — Yan-Ke Chen" description="Complete publication list of Yan-Ke Chen, with citation data from INSPIRE-HEP.">
+<Base title="Papers — Yan-Ke Chen" description="Complete list of papers and preprints by Yan-Ke Chen, with citation data from INSPIRE-HEP.">
   <header class="page-header">
     <div>
-      <p class="eyebrow"><T en="Publications · INSPIRE-HEP" zh="论文发表 · INSPIRE-HEP" /></p>
+      <p class="eyebrow"><T en="Papers · INSPIRE-HEP" zh="论文 · INSPIRE-HEP" /></p>
       <h1 class="page-title"><span class="i18n-en">The paper <em>trail.</em></span><span class="i18n-zh">论文<em>档案。</em></span></h1>
       <p class="page-intro"><T en="A complete, searchable record of published papers and preprints. Citation counts and bibliographic records are synchronized with INSPIRE-HEP." zh="完整、可检索的论文与预印本记录。引用次数和文献信息与 INSPIRE-HEP 同步。" /></p>
     </div>
     <div class="page-header-aside"><strong>{bundle.papers.length}</strong><T en="papers" zh="篇论文" /><br />{citationTotal} <T en="citations" zh="次引用" /></div>
   </header>
 
-  <section class="publication-controls" aria-label="Filter publications">
+  <section class="publication-controls" aria-label="Filter papers">
     <div class="search-row">
       <label class="search-box">
-        <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"><T en="Search publications" zh="搜索论文" /></span>
+        <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"><T en="Search papers" zh="搜索论文" /></span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" /><path d="m13 13 4 4" /></svg>
         <input id="paper-search" type="search" placeholder="Search title, author, or arXiv ID…" data-placeholder-en="Search title, author, or arXiv ID…" data-placeholder-zh="搜索题目、作者或 arXiv 编号…" autocomplete="off" />
       </label>
       <div class="sort-control">
-        <span id="sort-label" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"><T en="Sort publications" zh="论文排序" /></span>
+        <span id="sort-label" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)"><T en="Sort papers" zh="论文排序" /></span>
         <button id="paper-sort" class="sort-trigger" type="button" aria-labelledby="sort-label sort-current" aria-haspopup="listbox" aria-expanded="false" aria-controls="paper-sort-menu">
-          <span id="sort-current" data-en="Newest first" data-zh="最新发表优先">Newest first</span>
+          <span id="sort-current" data-en="Most Recent" data-zh="最新发表优先">Most Recent</span>
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg>
         </button>
         <div id="paper-sort-menu" class="sort-menu" role="listbox" aria-labelledby="sort-label" hidden>
-          <button class="sort-option" type="button" role="option" data-sort-value="year" data-en="Newest first" data-zh="最新发表优先" aria-selected="true">Newest first</button>
+          <button class="sort-option" type="button" role="option" data-sort-value="recent" data-en="Most Recent" data-zh="最新发表优先" aria-selected="true">Most Recent</button>
+          <button class="sort-option" type="button" role="option" data-sort-value="oldest" data-en="Least Recent" data-zh="最早发表优先" aria-selected="false">Least Recent</button>
           <button class="sort-option" type="button" role="option" data-sort-value="citations" data-en="Most cited" data-zh="引用最多优先" aria-selected="false">Most cited</button>
           <button class="sort-option" type="button" role="option" data-sort-value="title" data-en="Title A–Z" data-zh="按题目字母排序" aria-selected="false">Title A–Z</button>
         </div>
@@ -60,19 +61,20 @@ const positions = [
     </div>
   </section>
 
-  <div class="results-line"><span id="results-count" aria-live="polite">Showing {bundle.papers.length} publications</span><button class="reset-filter" id="reset-filters" type="button"><T en="Reset filters" zh="重置筛选" /> ↺</button></div>
+  <div class="results-line"><span id="results-count" aria-live="polite">Showing {bundle.papers.length} papers</span><button class="reset-filter" id="reset-filters" type="button"><T en="Reset filters" zh="重置筛选" /> ↺</button></div>
   <div id="publication-list" class="paper-list">
-    {papersByYear.map((paper) => <div class="publication-item" data-year={paper.year} data-theme={paper.theme_slug ?? 'untagged'} data-position={paper.author_position} data-citations={paper.citation_count} data-title={paper.title.replace(/\$/g, '')} data-search={`${paper.title} ${paper.authors.map((author) => displayName(author.name)).join(' ')} ${paper.arxiv_id}`.toLowerCase()}>
+    {papersMostRecent.map((paper) => <div class="publication-item" data-year={paper.year} data-theme={paper.theme_slug ?? 'untagged'} data-position={paper.author_position} data-citations={paper.citation_count} data-title={paper.title.replace(/\$/g, '')} data-search={`${paper.title} ${paper.authors.map((author) => displayName(author.name)).join(' ')} ${paper.arxiv_id}`.toLowerCase()}>
       <PaperCard paper={paper} />
     </div>)}
   </div>
-  <div id="empty-state" class="empty-state"><p><T en="No publications match these filters." zh="没有符合这些条件的论文。" /></p><button class="reset-filter" id="empty-reset" type="button"><T en="Clear all filters" zh="清除全部筛选" /></button></div>
+  <div id="empty-state" class="empty-state"><p><T en="No papers match these filters." zh="没有符合这些条件的论文。" /></p><button class="reset-filter" id="empty-reset" type="button"><T en="Clear all filters" zh="清除全部筛选" /></button></div>
 </Base>
 
 <script>
-  const state = { query: '', year: 'all', theme: 'all', position: 'all', sort: 'year' };
+  const state = { query: '', year: 'all', theme: 'all', position: 'all', sort: 'recent' };
   const list = document.querySelector<HTMLElement>('#publication-list')!;
   const items = Array.from(list.querySelectorAll<HTMLElement>('.publication-item'));
+  const recentIndex = new Map(items.map((item, index) => [item, index]));
   const search = document.querySelector<HTMLInputElement>('#paper-search')!;
   const sortButton = document.querySelector<HTMLButtonElement>('#paper-sort')!;
   const sortMenu = document.querySelector<HTMLElement>('#paper-sort-menu')!;
@@ -81,12 +83,12 @@ const positions = [
   const count = document.querySelector<HTMLElement>('#results-count')!;
   const empty = document.querySelector<HTMLElement>('#empty-state')!;
   const params = new URLSearchParams(window.location.search);
+  const sortAliases: Record<string, string> = { year: 'recent', recent: 'recent', oldest: 'oldest', citations: 'citations', title: 'title' };
   state.query = params.get('q') ?? '';
   state.year = params.get('year') ?? 'all';
   state.theme = params.get('theme') ?? 'all';
   state.position = params.get('position') ?? 'all';
-  state.sort = params.get('sort') ?? 'year';
-  state.sort = ['year', 'citations', 'title'].includes(state.sort) ? state.sort : 'year';
+  state.sort = sortAliases[params.get('sort') ?? 'recent'] ?? 'recent';
   search.value = state.query;
 
   function setSortOpen(open: boolean, focusSelected = false): void {
@@ -118,9 +120,12 @@ const positions = [
       if (matches) visible += 1;
     });
     const sorted = [...items].sort((a, b) => {
-      if (state.sort === 'citations') return Number(b.dataset.citations) - Number(a.dataset.citations) || Number(b.dataset.year) - Number(a.dataset.year);
-      if (state.sort === 'title') return a.dataset.title!.localeCompare(b.dataset.title!);
-      return Number(b.dataset.year) - Number(a.dataset.year);
+      const aIndex = recentIndex.get(a)!;
+      const bIndex = recentIndex.get(b)!;
+      if (state.sort === 'citations') return Number(b.dataset.citations) - Number(a.dataset.citations) || bIndex - aIndex;
+      if (state.sort === 'title') return a.dataset.title!.localeCompare(b.dataset.title!) || bIndex - aIndex;
+      if (state.sort === 'recent') return aIndex - bIndex;
+      return bIndex - aIndex;
     });
     sorted.forEach((item) => list.appendChild(item));
     document.querySelectorAll<HTMLButtonElement>('.filter-chip').forEach((button) => {
@@ -128,12 +133,12 @@ const positions = [
       button.dataset.active = String(state[group] === button.dataset.filterValue);
     });
     const chinese = document.documentElement.dataset.lang === 'zh';
-    count.textContent = chinese ? `显示 ${visible} / ${items.length} 篇论文` : `Showing ${visible} of ${items.length} publications`;
+    count.textContent = chinese ? `显示 ${visible} / ${items.length} 篇论文` : `Showing ${visible} of ${items.length} papers`;
     empty.classList.toggle('visible', visible === 0);
     const next = new URLSearchParams();
     if (state.query) next.set('q', state.query);
     for (const key of ['year', 'theme', 'position'] as const) if (state[key] !== 'all') next.set(key, state[key]);
-    if (state.sort !== 'year') next.set('sort', state.sort);
+    if (state.sort !== 'recent') next.set('sort', state.sort);
     const query = next.toString();
     history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
   }
@@ -143,7 +148,7 @@ const positions = [
     state.year = 'all';
     state.theme = 'all';
     state.position = 'all';
-    setSort('year');
+    setSort('recent');
     search.value = '';
     applyFilters();
   }

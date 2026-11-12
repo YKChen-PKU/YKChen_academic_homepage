@@ -5,12 +5,12 @@ import SectionHeading from '../components/SectionHeading.astro';
 import ThemeIcon from '../components/ThemeIcon.astro';
 import Sparkline from '../components/Sparkline.astro';
 import T from '../components/T.astro';
-import { bundle, citationTotal, hIndex } from '../lib/data';
+import { bundle, citationTotal, hIndex, papersMostRecent } from '../lib/data';
 import { renderInlineMath } from '../lib/math';
 import { researchThemes } from '../lib/research';
 import { experiences } from '../lib/experience';
 
-const recent = [...bundle.papers].sort((a, b) => b.year - a.year).slice(0, 5);
+const recent = papersMostRecent.slice(0, 5);
 const citations = Object.entries(bundle.metrics.cumulative_citations).sort(([a], [b]) => Number(a) - Number(b));
 ---
 <Base title="Yan-Ke Chen — Hadron Physics at PKU">
@@ -25,7 +25,7 @@ const citations = Object.entries(bundle.metrics.cumulative_citations).sort(([a],
         </p>
         <div class="hero-actions">
           <a class="button button--lime" href="/research/"><T en="Explore my research" zh="了解我的研究" /> <span aria-hidden="true">↗</span></a>
-          <a class="button button--ghost-light" href="/publications/"><T en="View publications" zh="查看论文" /></a>
+          <a class="button button--ghost-light" href="/publications/"><T en="View papers" zh="查看论文" /></a>
         </div>
       </div>
       <div class="hero-visual">
@@ -33,7 +33,7 @@ const citations = Object.entries(bundle.metrics.cumulative_citations).sort(([a],
       </div>
     </div>
     <div class="metrics-strip" aria-label="Publication summary">
-      <div class="metric"><strong class="metric-value">{bundle.papers.length}</strong><span class="metric-label"><T en="Publications" zh="论文" /></span></div>
+      <div class="metric"><strong class="metric-value">{bundle.papers.length}</strong><span class="metric-label"><T en="Papers" zh="论文" /></span></div>
       <div class="metric"><strong class="metric-value">{citationTotal}</strong><span class="metric-label"><T en="Citations" zh="引用" /></span></div>
       <div class="metric"><strong class="metric-value">{hIndex}</strong><span class="metric-label">h-index</span></div>
       <div class="metric"><strong class="metric-value">{bundle.metrics.coauthor_graph.nodes.length}</strong><span class="metric-label"><T en="Collaborators" zh="合作者" /></span></div>
